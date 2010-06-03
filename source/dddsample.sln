@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dddsample.specs", "dddsample.specs\dddsample.specs.csproj", "{58976228-9225-4781-B99C-8AD97B5BB0C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dddsample", "dddsample\dddsample.csproj", "{275D7BE1-1980-41AD-A8D7-4E8C4A58EF60}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58976228-9225-4781-B99C-8AD97B5BB0C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58976228-9225-4781-B99C-8AD97B5BB0C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58976228-9225-4781-B99C-8AD97B5BB0C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58976228-9225-4781-B99C-8AD97B5BB0C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{275D7BE1-1980-41AD-A8D7-4E8C4A58EF60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{275D7BE1-1980-41AD-A8D7-4E8C4A58EF60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{275D7BE1-1980-41AD-A8D7-4E8C4A58EF60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{275D7BE1-1980-41AD-A8D7-4E8C4A58EF60}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
