@@ -5,10 +5,10 @@ namespace dddsample.domain.shared
         /// <summary>
         /// Entities compare by identity, not by attributes.
         /// </summary>
-        /// <param name="the_other">The other entity.</param>
+        /// <param name="the_other_entity">The other entity.</param>
         /// <returns><code>true</code> if the identities are the same,
         /// regardles of other attributes.</returns>
-        bool has_the_same_identity_as(T the_other);
+        bool has_the_same_identity_as(T the_other_entity);
 
         /// <summary>
         /// Entities have an identity.
