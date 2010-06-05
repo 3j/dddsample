@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="domain\shared\IDomainEvent.cs" />
     <Compile Include="domain\shared\IEntity.cs" />
+    <Compile Include="domain\shared\ISpecification.cs" />
     <Compile Include="domain\shared\IValueObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
