@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="domain\shared\AndSpecification.cs" />
     <Compile Include="domain\shared\IDomainEvent.cs" />
     <Compile Include="domain\shared\IEntity.cs" />
     <Compile Include="domain\shared\ISpecification.cs" />
