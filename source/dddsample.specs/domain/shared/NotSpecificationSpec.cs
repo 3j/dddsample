@@ -21,7 +21,7 @@ namespace dddsample.specs.domain.shared
 
         Because of = () => result = sut.is_satisfied_by(the_to_negate_item);
 
-        It should_confirm_that_the_condition_has_been_negated = () => result.ShouldEqual(false);
+        It should_confirm_that_the_condition_has_been_negated = () => result.ShouldBeFalse();
 
         It should_check_that_the_to_negate_requirement_has_been_met = () =>
             the_to_negate_specification
@@ -46,7 +46,7 @@ namespace dddsample.specs.domain.shared
 
         Because of = () => result = sut.is_satisfied_by(the_to_negate_item);
 
-        It should_confirm_that_the_condition_has_been_negated = () => result.ShouldEqual(true);
+        It should_confirm_that_the_condition_has_been_negated = () => result.ShouldBeTrue();
 
         It should_check_that_the_to_negate_requirement_has_not_been_met = () =>
            the_to_negate_specification

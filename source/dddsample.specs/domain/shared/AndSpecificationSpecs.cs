@@ -29,7 +29,7 @@ namespace dddsample.specs.domain.shared
 
         Because of = () => result = sut.is_satisfied_by(the_item_that_meets_the_requirements);
 
-        It should_confirm_that_the_condition_was_satisfied = () => result.ShouldEqual(true);
+        It should_confirm_that_the_condition_was_satisfied = () => result.ShouldBeTrue();
         It should_check_if_the_left_side_requirement_is_met = () =>
             left_side_specification
                 .received(x => x.is_satisfied_by(the_item_that_meets_the_requirements));
@@ -66,7 +66,7 @@ namespace dddsample.specs.domain.shared
 
         Because of = () => result = sut.is_satisfied_by(the_item_that_meets_the_left_side_requirement);
 
-        It should_confirm_that_the_condition_was_satisfied = () => result.ShouldEqual(false);
+        It should_confirm_that_the_condition_was_satisfied = () => result.ShouldBeFalse();
         It should_check_if_the_left_side_requirement_is_met = () =>
             left_side_specification
                 .received(x => x.is_satisfied_by(the_item_that_meets_the_left_side_requirement));
@@ -102,7 +102,7 @@ namespace dddsample.specs.domain.shared
 
         Because of = () => result = sut.is_satisfied_by(the_item_that_meets_the_right_side_requirement);
 
-        It should_confirm_that_the_condition_was_satisfied = () => result.ShouldEqual(false);
+        It should_confirm_that_the_condition_was_satisfied = () => result.ShouldBeFalse();
         It should_check_if_the_left_side_requirement_is_not_met = () =>
             left_side_specification
                 .received(x => x.is_satisfied_by(the_item_that_meets_the_right_side_requirement));
@@ -138,7 +138,7 @@ namespace dddsample.specs.domain.shared
 
         Because of = () => result = sut.is_satisfied_by(the_item_that_meets_the_requirements);
 
-        It should_confirm_that_the_condition_was_not_satisfied = () => result.ShouldEqual(false);
+        It should_confirm_that_the_condition_was_not_satisfied = () => result.ShouldBeFalse();
         It should_check_if_the_left_side_requirement_is_not_met = () =>
             left_side_specification
                 .received(x => x.is_satisfied_by(the_item_that_meets_the_requirements));
