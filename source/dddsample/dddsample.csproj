@@ -44,6 +44,7 @@
     <Compile Include="domain\shared\IEntity.cs" />
     <Compile Include="domain\shared\ISpecification.cs" />
     <Compile Include="domain\shared\IValueObject.cs" />
+    <Compile Include="domain\shared\NotSpecification.cs" />
     <Compile Include="domain\shared\OrSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
