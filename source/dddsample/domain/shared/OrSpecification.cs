@@ -2,8 +2,8 @@ namespace dddsample.domain.shared
 {
     public class OrSpecification<T> : ISpecification<T>
     {
-        ISpecification<T> left_side_specification;
-        ISpecification<T> right_side_specification;
+        readonly ISpecification<T> left_side_specification;
+        readonly ISpecification<T> right_side_specification;
 
         public OrSpecification(ISpecification<T> left_side_specification, ISpecification<T> right_side_specification)
         {

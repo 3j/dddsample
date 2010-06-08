@@ -86,10 +86,10 @@ namespace dddsample.specs.domain.shared
 
             left_side_specification
                 .Stub(x => x.is_satisfied_by(the_item_that_meets_the_right_side_condition))
-                .Return(true);
+                .Return(false);
             right_side_specification
                 .Stub(x => x.is_satisfied_by(the_item_that_meets_the_right_side_condition))
-                .Return(false);
+                .Return(true);
 
             create_sut_using(() => new AndSpecification<IWhateverType>(left_side_specification, right_side_specification));
         };
@@ -100,9 +100,9 @@ namespace dddsample.specs.domain.shared
         It should_evaluate_the_left_side_condition = () =>
             left_side_specification
                 .received(x => x.is_satisfied_by(the_item_that_meets_the_right_side_condition));
-        It should_evaluate_the_right_side_condition = () =>
+        It should_not_evaluate_the_right_side_condition = () =>
             right_side_specification
-                .received(x => x.is_satisfied_by(the_item_that_meets_the_right_side_condition));
+                .never_received(x => x.is_satisfied_by(the_item_that_meets_the_right_side_condition));
 
         static bool result;
         static ISpecification<IWhateverType> left_side_specification;
@@ -134,9 +134,9 @@ namespace dddsample.specs.domain.shared
         It should_evaluate_the_left_side_condition = () =>
             left_side_specification
                 .received(x => x.is_satisfied_by(the_item_that_meets_no_condition));
-        It should_evaluate_the_right_side_condition = () =>
+        It should_not_evaluate_the_right_side_condition = () =>
             right_side_specification
-                .received(x => x.is_satisfied_by(the_item_that_meets_no_condition));
+                .never_received(x => x.is_satisfied_by(the_item_that_meets_no_condition));
 
         static bool result;
         static ISpecification<IWhateverType> left_side_specification;

@@ -2,7 +2,7 @@ namespace dddsample.domain.shared
 {
     public class NotSpecification<T> : ISpecification<T> 
     {
-        ISpecification<T> to_negate_specification;
+        readonly ISpecification<T> to_negate_specification;
 
         public NotSpecification(ISpecification<T> to_negate_specification)
         {
@@ -11,7 +11,7 @@ namespace dddsample.domain.shared
 
         public bool is_satisfied_by(T item)
         {
-            return !this.to_negate_specification.is_satisfied_by(item);
+            return !to_negate_specification.is_satisfied_by(item);
         }
     }
 }
