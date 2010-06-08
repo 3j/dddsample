@@ -47,6 +47,7 @@
     <Compile Include="domain\shared\IValueObject.cs" />
     <Compile Include="domain\shared\NotSpecification.cs" />
     <Compile Include="domain\shared\OrSpecification.cs" />
+    <Compile Include="domain\shared\SpecificationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
