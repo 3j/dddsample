@@ -7,53 +7,53 @@ namespace dddsample.specs.domain.shared
 {
     public class concern_for_the_not_specification : Observes<ISpecification<IWhateverType>, NotSpecification<IWhateverType>> { }
 
-    public class when_asked_if_a_to_negate_item_that_meets_the_requirement_satisfies_the_condition : concern_for_the_not_specification
+    public class when_asked_if_an_item_that_meets_the_condition_satisfies_the_not_operation_specification : concern_for_the_not_specification
     {
         Establish context = () =>
         {
             the_to_negate_specification = the_dependency<ISpecification<IWhateverType>>();
-            the_to_negate_item = an<IWhateverType>();
+            the_item_that_meets_the_condition = an<IWhateverType>();
 
             the_to_negate_specification
-                .Stub(x => x.is_satisfied_by(the_to_negate_item))
+                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_condition))
                 .Return(true);
         };
 
-        Because of = () => result = sut.is_satisfied_by(the_to_negate_item);
+        Because of = () => result = sut.is_satisfied_by(the_item_that_meets_the_condition);
 
-        It should_confirm_that_the_condition_has_been_negated = () => result.ShouldBeFalse();
+        It should_confirm_that_the_original_condition_has_been_negated = () => result.ShouldBeFalse();
 
-        It should_check_that_the_to_negate_requirement_has_been_met = () =>
+        It should_evaluate_the_condition = () =>
             the_to_negate_specification
-               .received(x => x.is_satisfied_by(the_to_negate_item));
+               .received(x => x.is_satisfied_by(the_item_that_meets_the_condition));
 
         static bool result;
-        static IWhateverType the_to_negate_item;
+        static IWhateverType the_item_that_meets_the_condition;
         static ISpecification<IWhateverType> the_to_negate_specification;
     }
 
-    public class when_asked_if_a_to_negate_item_that_does_not_meet_the_requirement_satisfies_the_condition : concern_for_the_not_specification
+    public class when_asked_if_an_item_that_does_not_meet_the_condition_satisfies_the_not_operation_specification : concern_for_the_not_specification
     {
         Establish context = () =>
         {
             the_to_negate_specification = the_dependency<ISpecification<IWhateverType>>();
-            the_to_negate_item = an<IWhateverType>();
+            the_item_that_does_not_meet_the_condition = an<IWhateverType>();
 
             the_to_negate_specification
-                .Stub(x => x.is_satisfied_by(the_to_negate_item))
+                .Stub(x => x.is_satisfied_by(the_item_that_does_not_meet_the_condition))
                 .Return(false);
         };
 
-        Because of = () => result = sut.is_satisfied_by(the_to_negate_item);
+        Because of = () => result = sut.is_satisfied_by(the_item_that_does_not_meet_the_condition);
 
-        It should_confirm_that_the_condition_has_been_negated = () => result.ShouldBeTrue();
+        It should_confirm_that_the_original_condition_has_been_negated = () => result.ShouldBeTrue();
 
-        It should_check_that_the_to_negate_requirement_has_not_been_met = () =>
+        It should_evaluate_the_condition = () =>
            the_to_negate_specification
-               .received(x => x.is_satisfied_by(the_to_negate_item));
+               .received(x => x.is_satisfied_by(the_item_that_does_not_meet_the_condition));
 
         static bool result;
-        static IWhateverType the_to_negate_item;
+        static IWhateverType the_item_that_does_not_meet_the_condition;
         static ISpecification<IWhateverType> the_to_negate_specification;
     }
 }

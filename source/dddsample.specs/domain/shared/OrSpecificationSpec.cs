@@ -7,135 +7,133 @@ namespace dddsample.specs.domain.shared
 {
     public class concern_for_the_or_specification : Observes<ISpecification<IWhateverType>, OrSpecification<IWhateverType>> {}
 
-    public class when_asked_if_an_item_that_meets_both_requirements_of_the_or_operator_satisfies_the_condition : concern_for_the_or_specification
+    public class when_asked_if_an_item_that_meets_both_conditions_satisfies_the_or_operator_specification : concern_for_the_or_specification
     {
         Establish context = () =>
         {
-            //left_side_specification = the_dependency<ISpecification<IWhateverType>>();
-            //right_side_specification = the_dependency<ISpecification<IWhateverType>>();
             left_side_specification = an<ISpecification<IWhateverType>>();
             right_side_specification = an<ISpecification<IWhateverType>>();
-            the_item_that_meets_the_requirements = an<IWhateverType>();
+            the_item_that_meets_both_conditions = an<IWhateverType>();
 
             left_side_specification
-                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_requirements))
+                .Stub(x => x.is_satisfied_by(the_item_that_meets_both_conditions))
                 .Return(false);
             right_side_specification
-                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_requirements))
+                .Stub(x => x.is_satisfied_by(the_item_that_meets_both_conditions))
                 .Return(true);
 
             create_sut_using(() => new OrSpecification<IWhateverType>(left_side_specification, right_side_specification));
         };
 
-        Because of = () => result = sut.is_satisfied_by(the_item_that_meets_the_requirements);
+        Because of = () => result = sut.is_satisfied_by(the_item_that_meets_both_conditions);
 
-        It should_confirm_that_the_condition_was_satisfied = () => result.ShouldBeTrue();
-        It should_check_if_the_left_side_requirement_is_met = () =>
+        It should_confirm_that_the_or_operator_specification_was_satisfied = () => result.ShouldBeTrue();
+        It should_evaluate_the_left_side_condition = () =>
             left_side_specification
-                .received(x => x.is_satisfied_by(the_item_that_meets_the_requirements));
-        It should_check_if_the_right_side_requirement_is_met = () =>
+                .received(x => x.is_satisfied_by(the_item_that_meets_both_conditions));
+        It should_evaluate_the_right_side_condition = () =>
             right_side_specification
-                .received(x => x.is_satisfied_by(the_item_that_meets_the_requirements));
+                .received(x => x.is_satisfied_by(the_item_that_meets_both_conditions));
 
         static bool result;
         static ISpecification<IWhateverType> left_side_specification;
         static ISpecification<IWhateverType> right_side_specification;
-        static IWhateverType the_item_that_meets_the_requirements;
+        static IWhateverType the_item_that_meets_both_conditions;
     }
 
-    public class when_asked_if_an_item_that_meets_only_the_left_side_requirement_of_the_or_operator_satisfies_the_condition : concern_for_the_or_specification
+    public class when_asked_if_an_item_that_meets_only_the_left_side_condition_satisfies_the_or_operator_specification : concern_for_the_or_specification
     {
         Establish context = () =>
         {
             left_side_specification = the_dependency<ISpecification<IWhateverType>>();
             right_side_specification = the_dependency<ISpecification<IWhateverType>>();
-            the_item_that_meets_the_left_side_requirement = an<IWhateverType>();
+            the_item_that_meets_the_left_side_condition = an<IWhateverType>();
 
             left_side_specification
-                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_left_side_requirement))
+                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_left_side_condition))
                 .Return(true);
             right_side_specification
-                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_left_side_requirement))
+                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_left_side_condition))
                 .Return(false);
         };
 
-        Because of = () => result = sut.is_satisfied_by(the_item_that_meets_the_left_side_requirement);
+        Because of = () => result = sut.is_satisfied_by(the_item_that_meets_the_left_side_condition);
 
-        It should_confirm_that_the_condition_was_satisfied = () => result.ShouldBeTrue();
-        It should_check_if_the_left_side_requirement_is_met = () =>
+        It should_confirm_that_the_or_operator_specification_was_satisfied = () => result.ShouldBeTrue();
+        It should_evaluate_the_left_side_condition = () =>
             left_side_specification
-                .received(x => x.is_satisfied_by(the_item_that_meets_the_left_side_requirement));
-        It should_check_if_the_right_side_requirement_is_not_met = () =>
+                .received(x => x.is_satisfied_by(the_item_that_meets_the_left_side_condition));
+        It should_evaluate_the_right_side_condition = () =>
             right_side_specification
-                .received(x => x.is_satisfied_by(the_item_that_meets_the_left_side_requirement));
+                .received(x => x.is_satisfied_by(the_item_that_meets_the_left_side_condition));
 
         static bool result;
         static ISpecification<IWhateverType> left_side_specification;
         static ISpecification<IWhateverType> right_side_specification;
-        static IWhateverType the_item_that_meets_the_left_side_requirement;
+        static IWhateverType the_item_that_meets_the_left_side_condition;
     }
 
-    public class when_asked_if_an_item_that_meets_only_the_right_side_requirement_of_the_or_operator_satisfies_the_condition : concern_for_the_or_specification
+    public class when_asked_if_an_item_that_meets_only_the_right_side_condition_satisfies_the_or_operator_specification : concern_for_the_or_specification
     {
         Establish context = () =>
         {
             left_side_specification = the_dependency<ISpecification<IWhateverType>>();
             right_side_specification = the_dependency<ISpecification<IWhateverType>>();
-            the_item_that_meets_the_right_side_requirement = an<IWhateverType>();
+            the_item_that_meets_the_right_side_condition = an<IWhateverType>();
 
             left_side_specification
-                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_right_side_requirement))
+                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_right_side_condition))
                 .Return(true);
             right_side_specification
-                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_right_side_requirement))
+                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_right_side_condition))
                 .Return(false);
         };
 
-        Because of = () => result = sut.is_satisfied_by(the_item_that_meets_the_right_side_requirement);
+        Because of = () => result = sut.is_satisfied_by(the_item_that_meets_the_right_side_condition);
 
-        It should_confirm_that_the_condition_was_satisfied = () => result.ShouldBeTrue();
-        It should_check_if_the_left_side_requirement_is_not_met = () =>
+        It should_confirm_that_the_or_operator_specification_was_satisfied = () => result.ShouldBeTrue();
+        It should_evaluate_the_left_side_condition = () =>
             left_side_specification
-                .received(x => x.is_satisfied_by(the_item_that_meets_the_right_side_requirement));
-        It should_check_if_the_right_side_requirement_is_met = () =>
+                .received(x => x.is_satisfied_by(the_item_that_meets_the_right_side_condition));
+        It should_evaluate_the_right_side_condition = () =>
             right_side_specification
-                .received(x => x.is_satisfied_by(the_item_that_meets_the_right_side_requirement));
+                .received(x => x.is_satisfied_by(the_item_that_meets_the_right_side_condition));
 
         static bool result;
         static ISpecification<IWhateverType> left_side_specification;
         static ISpecification<IWhateverType> right_side_specification;
-        static IWhateverType the_item_that_meets_the_right_side_requirement;
+        static IWhateverType the_item_that_meets_the_right_side_condition;
     }
 
-    public class when_asked_if_an_item_that_does_not_meet_any_of_the_requirements_of_the_or_operator_satisfies_the_condition : concern_for_the_or_specification
+    public class when_asked_if_an_item_that_does_not_meet_any_of_the_conditions_satisfies_the_or_operator_specification : concern_for_the_or_specification
     {
         Establish context = () =>
         {
             left_side_specification = the_dependency<ISpecification<IWhateverType>>();
             right_side_specification = the_dependency<ISpecification<IWhateverType>>();
-            the_item_that_meets_the_requirements = an<IWhateverType>();
+            the_item_that_meets_no_condition = an<IWhateverType>();
 
             left_side_specification
-                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_requirements))
+                .Stub(x => x.is_satisfied_by(the_item_that_meets_no_condition))
                 .Return(false);
             right_side_specification
-                .Stub(x => x.is_satisfied_by(the_item_that_meets_the_requirements))
+                .Stub(x => x.is_satisfied_by(the_item_that_meets_no_condition))
                 .Return(false);
         };
 
-        Because of = () => result = sut.is_satisfied_by(the_item_that_meets_the_requirements);
+        Because of = () => result = sut.is_satisfied_by(the_item_that_meets_no_condition);
 
-        It should_confirm_that_the_condition_was_not_satisfied = () => result.ShouldBeFalse();
-        It should_check_if_the_left_side_requirement_is_not_met = () =>
+        It should_confirm_that_the_or_operator_specification_was_not_satisfied = () => result.ShouldBeFalse();
+        It should_evaluate_the_left_side_condition = () =>
             left_side_specification
-                .received(x => x.is_satisfied_by(the_item_that_meets_the_requirements));
-        It should_check_if_the_right_side_requirement_is_not_met = () =>
+                .received(x => x.is_satisfied_by(the_item_that_meets_no_condition));
+        It should_evaluate_the_right_side_condition = () =>
             right_side_specification
-                .received(x => x.is_satisfied_by(the_item_that_meets_the_requirements));
+                .received(x => x.is_satisfied_by(the_item_that_meets_no_condition));
 
         static bool result;
         static ISpecification<IWhateverType> left_side_specification;
         static ISpecification<IWhateverType> right_side_specification;
-        static IWhateverType the_item_that_meets_the_requirements;
+        static IWhateverType the_item_that_meets_no_condition;
     }
 }
