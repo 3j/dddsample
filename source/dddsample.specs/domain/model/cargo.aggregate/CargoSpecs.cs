@@ -24,4 +24,21 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         static ITrackingId result;
         static IRouteSpecification route_specification;
     }
+
+    public class when_asked_about_its_route_specification : concern_for_cargo
+    {
+        Establish context = () =>
+        {
+            tracking_id = the_dependency<ITrackingId>();
+            route_specification = the_dependency<IRouteSpecification>();
+        };
+
+        Because of = () => result = sut.route_specification();
+
+        It should_provide_the_route_specification = () => result.ShouldEqual(route_specification);
+
+        static IRouteSpecification result;
+        static IRouteSpecification route_specification;
+        static ITrackingId tracking_id;
+    }
 }   

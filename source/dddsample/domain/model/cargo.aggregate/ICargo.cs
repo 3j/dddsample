@@ -3,5 +3,6 @@
     public interface ICargo
     {
         ITrackingId tracking_id();
+        IRouteSpecification route_specification();
     }
 }
