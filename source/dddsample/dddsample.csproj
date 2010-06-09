@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="domain\model\cargo.aggregate\Cargo.cs" />
+    <Compile Include="domain\model\cargo.aggregate\ICargo.cs" />
+    <Compile Include="domain\model\cargo.aggregate\IRouteSpecification.cs" />
+    <Compile Include="domain\model\cargo.aggregate\ITrackingId.cs" />
     <Compile Include="domain\shared\AndSpecification.cs" />
     <Compile Include="domain\shared\IDomainEvent.cs" />
     <Compile Include="domain\shared\IEntity.cs" />
@@ -50,9 +54,7 @@
     <Compile Include="domain\shared\SpecificationExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="domain\model\cargo.aggregate\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

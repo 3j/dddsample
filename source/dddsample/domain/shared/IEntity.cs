@@ -1,6 +1,6 @@
 namespace dddsample.domain.shared
 {
-    public interface IEntity<T, ID>
+    public interface IEntity<T>
     {
         /// <summary>
         /// Entities compare by identity, not by attributes.
@@ -10,10 +10,10 @@ namespace dddsample.domain.shared
         /// regardles of other attributes.</returns>
         bool has_the_same_identity_as(T the_other_entity);
 
-        /// <summary>
-        /// Entities have an identity.
-        /// </summary>
-        /// <returns>The identity of this entity.</returns>
-        ID identity();
+        ///// <summary>
+        ///// Entities have an identity.
+        ///// </summary>
+        ///// <returns>The identity of this entity.</returns>
+        //ID identity();
     }
 }

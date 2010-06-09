@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="domain\model\cargo.aggregate\CargoSpecs.cs" />
     <Compile Include="domain\shared\AndSpecificationSpecs.cs" />
     <Compile Include="domain\shared\IWhateverType.cs" />
     <Compile Include="domain\shared\NotSpecificationSpec.cs" />
@@ -64,9 +65,7 @@
       <Name>dddsample</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="domain\model\cargo.aggregate\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
