@@ -7,7 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dddsample", "dddsample\ddds
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentation", "{EED10863-C85E-4D8C-816C-43DBCD75DA21}"
 	ProjectSection(SolutionItems) = preProject
-		..\documentation\DDD_Sample Pequeñas particularidades Java vs C#.odt = ..\documentation\DDD_Sample Pequeñas particularidades Java vs C#.odt
 		..\documentation\DDD_Sample Primeros Pasos con GIT.odt = ..\documentation\DDD_Sample Primeros Pasos con GIT.odt
 		..\documentation\DDD_Sample Proceso.odt = ..\documentation\DDD_Sample Proceso.odt
 	EndProjectSection
