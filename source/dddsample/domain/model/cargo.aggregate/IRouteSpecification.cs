@@ -2,5 +2,6 @@
 {
     public interface IRouteSpecification
     {
+        ILocation origin();
     }
 }

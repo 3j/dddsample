@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="domain\model\cargo.aggregate\Cargo.cs" />
     <Compile Include="domain\model\cargo.aggregate\ICargo.cs" />
+    <Compile Include="domain\model\cargo.aggregate\ILocation.cs" />
     <Compile Include="domain\model\cargo.aggregate\IRouteSpecification.cs" />
     <Compile Include="domain\model\cargo.aggregate\ITrackingId.cs" />
     <Compile Include="domain\shared\AndSpecification.cs" />
