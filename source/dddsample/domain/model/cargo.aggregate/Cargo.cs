@@ -3,7 +3,7 @@ using dddsample.domain.shared;
 
 namespace dddsample.domain.model.cargo.aggregate
 {
-    public class Cargo : ICargo, IEntity<Cargo>
+    public class Cargo : ICargo
     {
         readonly ITrackingId underlying_tracking_id;
         readonly IRouteSpecification underlying_route_specification;
@@ -16,9 +16,9 @@ namespace dddsample.domain.model.cargo.aggregate
             this.underlying_origin_location = route_specification.origin();
         }
 
-        public bool has_the_same_identity_as(Cargo the_other_entity)
+        public bool has_the_same_identity_as(ICargo the_other_entity)
         {
-            throw new NotImplementedException();
+            return underlying_tracking_id.has_the_same_value_as(the_other_entity.tracking_id());
         }
 
         public ITrackingId tracking_id()
