@@ -33,5 +33,27 @@
         {
             return this.underlying_origin_location;
         }
+
+        public override int GetHashCode()
+        {
+            return underlying_tracking_id.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return underlying_tracking_id.ToString();
+        }
+
+        //public bool Equals(ICargo the_other_cargo)
+        //{
+        //    ICargo the_other_entity = (ICargo) the_other_cargo;
+        //    return this.has_the_same_identity_as((Cargo)the_other_cargo);
+        //}
+
+        public override bool Equals(object obj)
+        {
+            return this.has_the_same_identity_as((Cargo)obj);
+        }
+
     }
 }

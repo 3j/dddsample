@@ -1,3 +1,4 @@
+using System;
 using dddsample.domain.model.cargo.aggregate;
 using Machine.Specifications;
 using Machine.Specifications.DevelopWithPassion.Rhino;
@@ -50,7 +51,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         It should_provide_the_origin_location = () =>
             result.ShouldEqual(the_origin_location);
 
-        It should_leverage_the_route_specification = () =>
+        It should_leverage_the_route_specification_origin_location = () =>
             route_specification.received(x => x.origin());
 
         static ILocation the_origin_location;
@@ -71,7 +72,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_confirm_that_they_have_the_same_identity = () => result.ShouldBeTrue();
 
-        It should_leverage_the_tracking_identity = () =>
+        It should_leverage_the_tracking_identity_collaborator = () =>
             tracking_id.received(
                 x => x.has_the_same_value_as(the_to_compare_cargo.tracking_id()));
 
@@ -93,7 +94,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_confirm_that_they_have_diferent_identity = () => result.ShouldBeFalse();
 
-        It should_leverage_the_tracking_identity = () =>
+        It should_leverage_the_tracking_identity_collaborator = () =>
             tracking_id.received(
                 x => x.has_the_same_value_as(the_to_compare_cargo.tracking_id()));
 
@@ -114,10 +115,40 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_confirm_that_they_have_diferent_identity = () => result.ShouldBeFalse();
 
-        It should_not_leverage_the_tracking_identity = () =>
+        It should_not_leverage_the_tracking_identity_collaborator = () =>
             tracking_id.never_received(x => x.has_the_same_value_as(null));
 
         static bool result;
         static ICargo a_null_to_compare_cargo;
+    }
+
+    public class when_asked_about_its_hash_code : concern_for_cargo
+    {
+        Establish context = () =>
+        {
+            tracking_id
+                .Stub(x => x.GetHashCode())
+                .Return(new int());
+        };
+
+        Because of = () => sut.GetHashCode();
+
+        It should_leverage_the_tracking_identity_hash_code = () =>
+            tracking_id.received(x => x.GetHashCode());
+    }
+
+    public class when_asked_about_its_string_representation : concern_for_cargo
+    {
+        Establish context = () =>
+        {
+            tracking_id
+                .Stub(x => x.ToString())
+                .Return(string.Empty);
+        };
+
+        Because of = () => sut.ToString();
+
+        It should_leverage_the_tracking_identity_string_representation = () =>
+            tracking_id.received(x => x.ToString());
     }
 }
