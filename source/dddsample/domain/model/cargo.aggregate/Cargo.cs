@@ -1,7 +1,4 @@
-﻿using System;
-using dddsample.domain.shared;
-
-namespace dddsample.domain.model.cargo.aggregate
+﻿namespace dddsample.domain.model.cargo.aggregate
 {
     public class Cargo : ICargo
     {
@@ -18,7 +15,8 @@ namespace dddsample.domain.model.cargo.aggregate
 
         public bool has_the_same_identity_as(ICargo the_other_entity)
         {
-            return underlying_tracking_id.has_the_same_value_as(the_other_entity.tracking_id());
+            return the_other_entity != null && 
+                   underlying_tracking_id.has_the_same_value_as(the_other_entity.tracking_id());
         }
 
         public ITrackingId tracking_id()

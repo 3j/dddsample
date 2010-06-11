@@ -47,10 +47,10 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         Because of = () => result = sut.origin_location();
 
-        It should_provide_the_origin_location = () => 
+        It should_provide_the_origin_location = () =>
             result.ShouldEqual(the_origin_location);
 
-        It should_leverage_the_route_specification = () => 
+        It should_leverage_the_route_specification = () =>
             route_specification.received(x => x.origin());
 
         static ILocation the_origin_location;
@@ -71,9 +71,9 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_confirm_that_they_have_the_same_identity = () => result.ShouldBeTrue();
 
-        It should_leverage_the_tracking_identity = () => 
-           tracking_id.received(
-              x => x.has_the_same_value_as(the_to_compare_cargo.tracking_id()));
+        It should_leverage_the_tracking_identity = () =>
+            tracking_id.received(
+                x => x.has_the_same_value_as(the_to_compare_cargo.tracking_id()));
 
         static ICargo the_to_compare_cargo;
         static bool result;
@@ -92,8 +92,32 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         Because of = () => result = sut.has_the_same_identity_as(the_to_compare_cargo);
 
         It should_confirm_that_they_have_diferent_identity = () => result.ShouldBeFalse();
-        
+
+        It should_leverage_the_tracking_identity = () =>
+            tracking_id.received(
+                x => x.has_the_same_value_as(the_to_compare_cargo.tracking_id()));
+
         static ICargo the_to_compare_cargo;
         static bool result;
     }
-}   
+
+    public class when_comparing_to_a_null_cargo : concern_for_cargo
+    {
+        Establish context = () =>
+        {
+            a_null_to_compare_cargo = null;
+            tracking_id
+                .Stub(x => x.has_the_same_value_as(null));
+        };
+
+        Because of = () => result = sut.has_the_same_identity_as(a_null_to_compare_cargo);
+
+        It should_confirm_that_they_have_diferent_identity = () => result.ShouldBeFalse();
+
+        It should_not_leverage_the_tracking_identity = () =>
+            tracking_id.never_received(x => x.has_the_same_value_as(null));
+
+        static bool result;
+        static ICargo a_null_to_compare_cargo;
+    }
+}
