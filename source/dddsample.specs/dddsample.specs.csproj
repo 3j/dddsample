@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="domain\model\cargo.aggregate\CargoSpecs.cs" />
+    <Compile Include="domain\model\cargo.aggregate\RouteSpecificationSpecs.cs" />
     <Compile Include="domain\shared\AndSpecificationSpecs.cs" />
     <Compile Include="domain\shared\IWhateverType.cs" />
     <Compile Include="domain\shared\NotSpecificationSpec.cs" />
