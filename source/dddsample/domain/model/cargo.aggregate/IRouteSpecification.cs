@@ -7,6 +7,6 @@ namespace dddsample.domain.model.cargo.aggregate
     {
         ILocation origin();
         ILocation destination();
-        DateTime arrival_dealine();
+        IArrivalDeadline arrival_dealine();
     }
 }

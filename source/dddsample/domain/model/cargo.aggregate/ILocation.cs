@@ -1,6 +1,8 @@
-﻿namespace dddsample.domain.model.cargo.aggregate
+﻿using dddsample.domain.shared;
+
+namespace dddsample.domain.model.cargo.aggregate
 {
-    public interface ILocation
+    public interface ILocation : IValueObject<ILocation>
     {
     }
 }

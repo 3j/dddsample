@@ -6,14 +6,13 @@ namespace dddsample.domain.model.cargo.aggregate
     {
         readonly ILocation underlying_origin_location;
         readonly ILocation underlying_destination_location;
-        readonly DateTime underlying_arrival_deadline;
+        readonly IArrivalDeadline underlying_arrival_deadline;
 
-        public RouteSpecification(ILocation the_origin_location, ILocation the_destination_location, DateTime the_arrival_deadline)
+        public RouteSpecification(ILocation the_origin_location, ILocation the_destination_location, IArrivalDeadline the_arrival_deadline)
         {
             this.underlying_origin_location = the_origin_location;
             this.underlying_destination_location = the_destination_location;
             this.underlying_arrival_deadline = the_arrival_deadline;
-
         }
 
         public ILocation origin()
@@ -26,7 +25,7 @@ namespace dddsample.domain.model.cargo.aggregate
             return this.underlying_destination_location;
         }
 
-        public DateTime arrival_dealine()
+        public IArrivalDeadline arrival_dealine()
         {
             return this.underlying_arrival_deadline;
         }
@@ -41,9 +40,15 @@ namespace dddsample.domain.model.cargo.aggregate
             throw new NotImplementedException();
         }
 
-        public bool is_satisfied_by(IItinerary this_itinerary)
+        public bool is_satisfied_by(IItinerary the_itinerary)
         {
-            throw new NotImplementedException();
+            return the_itinerary != null &&
+                   underlying_origin_location.has_the_same_value_as(
+                       the_itinerary.initial_departure_location()) &&
+                   underlying_destination_location.has_the_same_value_as(
+                       the_itinerary.final_arrival_location()) &&
+                   underlying_arrival_deadline.is_afterwards_than(
+                       the_itinerary.final_arrival_date());
         }
     }
 }
