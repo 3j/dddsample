@@ -1,4 +1,5 @@
-﻿using dddsample.domain.shared;
+﻿using System;
+using dddsample.domain.shared;
 
 namespace dddsample.domain.model.cargo.aggregate
 {
@@ -6,5 +7,6 @@ namespace dddsample.domain.model.cargo.aggregate
     {
         ILocation origin();
         ILocation destination();
+        DateTime arrival_dealine();
     }
 }
