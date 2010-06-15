@@ -286,8 +286,21 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         Because of = () => result = sut.is_satisfied_by(the_null_itinerary);
 
         It should_confirm_that_the_itinerary_does_not_satisfy_the_route_specification = () => result.ShouldBeFalse();
-        
+
+        It should_not_leverage_the_origin_location_identity_comparer = () =>
+            the_origin_location
+                .never_received(x => x.has_the_same_value_as(an<ILocation>()));
+
+        It should_not_leverage_the_destination_location_identity_comparer = () =>
+            the_destination_location
+                .never_received(x => x.has_the_same_value_as(an<ILocation>()));
+
+        It should_not_leverage_the_arrival_deadline_time_check = () =>
+            the_arrival_deadline
+               .never_received(x => x.is_afterwards_than(an<IArrivalDeadline>()));
+
         static bool result;
         static IItinerary the_null_itinerary;
     }
+
 }

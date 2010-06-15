@@ -30,7 +30,7 @@ namespace dddsample.domain.model.cargo.aggregate
             return this.underlying_arrival_deadline;
         }
 
-        public bool has_the_same_value_as(IRouteSpecification the_other_value_object)
+        public bool has_the_same_value_as(IRouteSpecification the_other)
         {
             throw new NotImplementedException();
         }
