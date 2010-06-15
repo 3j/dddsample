@@ -32,7 +32,10 @@ namespace dddsample.domain.model.cargo.aggregate
 
         public bool has_the_same_value_as(IRouteSpecification the_other)
         {
-            throw new NotImplementedException();
+            return the_other != null &&
+                   this.underlying_origin_location.has_the_same_value_as(the_other.origin()) &&
+                   this.underlying_destination_location.has_the_same_value_as(the_other.destination()) &&
+                   this.underlying_arrival_deadline.has_the_same_value_as(the_other.arrival_dealine());
         }
 
         public bool is_satisfied_by(IItinerary the_itinerary)
