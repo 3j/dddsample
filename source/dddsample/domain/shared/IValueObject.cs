@@ -10,11 +10,5 @@ namespace dddsample.domain.shared
         /// <returns><code>true</code> if the given value object's and 
         /// this value object's attributes are the same.</returns>
         bool has_the_same_value_as(T the_other_value_object);
-        
-        /// <summary>
-        /// Value objects can be freely copied.
-        /// </summary>
-        /// <returns>A safe, deep copy of this value object.</returns>
-        T copy_into_this();
     }
 }

@@ -35,11 +35,6 @@ namespace dddsample.domain.model.cargo.aggregate
             throw new NotImplementedException();
         }
 
-        public IRouteSpecification copy_into_this()
-        {
-            throw new NotImplementedException();
-        }
-
         public bool is_satisfied_by(IItinerary the_itinerary)
         {
             return the_itinerary != null &&
@@ -49,6 +44,7 @@ namespace dddsample.domain.model.cargo.aggregate
                        the_itinerary.final_arrival_location()) &&
                    underlying_arrival_deadline.is_afterwards_than(
                        the_itinerary.final_arrival_date());
+
         }
     }
 }
