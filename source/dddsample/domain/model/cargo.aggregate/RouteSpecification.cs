@@ -49,5 +49,13 @@ namespace dddsample.domain.model.cargo.aggregate
                        the_itinerary.final_arrival_date());
 
         }
+
+        public override int GetHashCode()
+        {
+            int result =  this.underlying_origin_location.GetHashCode();
+            result = result * 397 + this.underlying_destination_location.GetHashCode();
+            result = result * 397 + this.underlying_arrival_deadline.GetHashCode();
+            return result;
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace dddsample.domain.model.cargo.aggregate
         ILocation origin();
         ILocation destination();
         IArrivalDeadline arrival_dealine();
+        int GetHashCode();
     }
 }

@@ -485,4 +485,37 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         static bool result;
         static IRouteSpecification the_other_route_specification;
     }
+
+    public class when_asked_about_the_route_specification_hash_code : concern_for_route_specification
+    {
+        Establish context = () =>
+        {
+            the_origin_location
+                .Stub(x => x.GetHashCode())
+                .Return(2);
+
+            the_destination_location
+                .Stub(x => x.GetHashCode())
+                .Return(4);
+
+            the_arrival_deadline
+                .Stub(x => x.GetHashCode())
+                .Return(6);
+        };
+
+        Because of = () => result = sut.GetHashCode();
+
+        It should_calculate_the_hash_code_according_to_a_given_algorithm = () => result.ShouldEqual(316812);
+
+        It should_leverage_the_origin_location_hash_code =
+            () => the_origin_location.received(x => x.GetHashCode());
+
+        It should_leverage_the_destination_location_hash_code =
+            () => the_destination_location.received(x => x.GetHashCode());
+
+        It should_leverage_the_arrival_deadline_hash_code =
+            () => the_arrival_deadline.received(x => x.GetHashCode());
+
+        static int result;
+    }
 }
