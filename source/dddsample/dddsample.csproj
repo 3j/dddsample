@@ -48,6 +48,7 @@
     <Compile Include="domain\model\cargo.aggregate\IRouteSpecification.cs" />
     <Compile Include="domain\model\cargo.aggregate\ITrackingId.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteSpecification.cs" />
+    <Compile Include="domain\model\cargo.aggregate\RouteSpecificationFactory.cs" />
     <Compile Include="domain\shared\AndSpecification.cs" />
     <Compile Include="domain\shared\IDomainEvent.cs" />
     <Compile Include="domain\shared\IEntity.cs" />

@@ -12,20 +12,23 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             the_origin_location = an<ILocation>();
             the_destination_location = an<ILocation>();
             the_arrival_deadline = an<IArrivalDeadline>();
+            the_route_specification_factory = new RouteSpecificationFactory();
 
-            create_sut_using(
-                () => new RouteSpecification(the_origin_location, the_destination_location, the_arrival_deadline));
+            create_sut_using(() =>
+                the_route_specification_factory
+                   .create_route_specification_using(the_origin_location, the_destination_location, the_arrival_deadline));
         };
 
         protected static ILocation the_origin_location;
         protected static ILocation the_destination_location;
         protected static IArrivalDeadline the_arrival_deadline;
+        protected static RouteSpecificationFactory the_route_specification_factory;
     }
 
     public class when_asked_for_its_origin_location : concern_for_route_specification
     {
         Because of = () => result = sut.origin();
-        
+
         It should_give_back_the_origin_location = () => result.ShouldEqual(the_origin_location);
 
         static ILocation result;
@@ -83,7 +86,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_confirm_that_the_itinerary_satisfies_the_route_specification = () => result.ShouldBeTrue();
 
-        It should_leverage_the_itinerary_initial_departure_location = () => 
+        It should_leverage_the_itinerary_initial_departure_location = () =>
             the_itinerary_that_satisfies_the_route_specification.received(x => x.initial_departure_location());
 
         It should_leverage_the_origin_location_identity_comparer = () =>
@@ -99,14 +102,14 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                 .received(x => x.has_the_same_value_as(
                     the_itinerary_that_satisfies_the_route_specification.final_arrival_location()));
 
-        It should_leverage_the_itinerary_final_arrival_date = () => 
+        It should_leverage_the_itinerary_final_arrival_date = () =>
             the_itinerary_that_satisfies_the_route_specification.received(x => x.final_arrival_date());
 
-        It should_leverage_the_arrival_deadline_time_check = () => 
+        It should_leverage_the_arrival_deadline_time_check = () =>
             the_arrival_deadline
                .received(x => x.is_afterwards_than(
                    the_itinerary_that_satisfies_the_route_specification.final_arrival_date()));
-        
+
         static bool result;
         static IItinerary the_itinerary_that_satisfies_the_route_specification;
     }
@@ -116,11 +119,11 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         Establish context = () =>
         {
             the_itinerary_with_an_invalid_initial_departure_location = an<IItinerary>();
-            
+
             the_itinerary_with_an_invalid_initial_departure_location
                 .Stub(x => x.initial_departure_location())
                 .Return(an<ILocation>());
-            
+
             the_origin_location
                 .Stub(x => x.has_the_same_value_as(
                     the_itinerary_with_an_invalid_initial_departure_location.initial_departure_location()))
@@ -171,7 +174,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             the_itinerary_with_an_invalid_final_arrival_location
                 .Stub(x => x.final_arrival_location())
                 .Return(an<ILocation>());
-            
+
             the_origin_location
                 .Stub(x => x.has_the_same_value_as(
                     the_itinerary_with_an_invalid_final_arrival_location.initial_departure_location()))

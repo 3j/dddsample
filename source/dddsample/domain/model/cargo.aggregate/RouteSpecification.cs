@@ -8,7 +8,7 @@ namespace dddsample.domain.model.cargo.aggregate
         readonly ILocation underlying_destination_location;
         readonly IArrivalDeadline underlying_arrival_deadline;
 
-        public RouteSpecification(ILocation the_origin_location, ILocation the_destination_location, IArrivalDeadline the_arrival_deadline)
+        internal RouteSpecification(ILocation the_origin_location, ILocation the_destination_location, IArrivalDeadline the_arrival_deadline)
         {
             this.underlying_origin_location = the_origin_location;
             this.underlying_destination_location = the_destination_location;
@@ -47,12 +47,11 @@ namespace dddsample.domain.model.cargo.aggregate
                        the_itinerary.final_arrival_location()) &&
                    underlying_arrival_deadline.is_afterwards_than(
                        the_itinerary.final_arrival_date());
-
         }
 
         public override int GetHashCode()
         {
-            int result =  this.underlying_origin_location.GetHashCode();
+            var result =  this.underlying_origin_location.GetHashCode();
             result = result * 397 + this.underlying_destination_location.GetHashCode();
             result = result * 397 + this.underlying_arrival_deadline.GetHashCode();
             return result;
