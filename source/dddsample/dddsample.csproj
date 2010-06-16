@@ -41,7 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="domain\model\cargo.aggregate\Cargo.cs" />
-    <Compile Include="domain\model\cargo.aggregate\IArrivalDeadline.cs" />
+    <Compile Include="domain\model\cargo.aggregate\Date.cs" />
+    <Compile Include="domain\model\cargo.aggregate\IDate.cs" />
     <Compile Include="domain\model\cargo.aggregate\ICargo.cs" />
     <Compile Include="domain\model\cargo.aggregate\IItinerary.cs" />
     <Compile Include="domain\model\cargo.aggregate\ILocation.cs" />

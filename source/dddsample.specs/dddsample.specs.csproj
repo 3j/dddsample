@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="domain\model\cargo.aggregate\DateSpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\CargoSpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteSpecificationFactorySpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteSpecificationSpecs.cs" />

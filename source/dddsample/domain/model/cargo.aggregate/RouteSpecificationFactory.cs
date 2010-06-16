@@ -4,7 +4,7 @@ namespace dddsample.domain.model.cargo.aggregate
 {
     public class RouteSpecificationFactory
     {
-        public IRouteSpecification create_route_specification_using(ILocation the_origin_location, ILocation the_destination_location, IArrivalDeadline the_arrival_deadline)
+        public IRouteSpecification create_route_specification_using(ILocation the_origin_location, ILocation the_destination_location, IDate the_arrival_deadline)
         {
             if (the_origin_location == null)
                 throw new ArgumentNullException("the_origin_location",

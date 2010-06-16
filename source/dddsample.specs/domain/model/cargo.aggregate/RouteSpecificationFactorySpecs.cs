@@ -14,7 +14,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         {
             the_origin_location = null;
             the_destination_location = an<ILocation>();
-            the_arrival_deadline = an<IArrivalDeadline>();
+            the_arrival_deadline = an<IDate>();
         };
 
         Because of = () => catch_exception(() => sut.create_route_specification_using(the_origin_location, the_destination_location, the_arrival_deadline));
@@ -25,7 +25,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         static ILocation the_origin_location;
         static ILocation the_destination_location;
-        static IArrivalDeadline the_arrival_deadline;
+        static IDate the_arrival_deadline;
     }
 
     public class when_attempting_to_inject_a_null_destination_location_into_the_route_specification_factory : concern_for_route_specification_factory
@@ -34,7 +34,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         {
             the_origin_location = an<ILocation>();
             the_destination_location = null;
-            the_arrival_deadline = an<IArrivalDeadline>();
+            the_arrival_deadline = an<IDate>();
         };
 
         Because of = () => catch_exception(() => sut.create_route_specification_using(the_origin_location, the_destination_location, the_arrival_deadline));
@@ -45,7 +45,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         static ILocation the_origin_location;
         static ILocation the_destination_location;
-        static IArrivalDeadline the_arrival_deadline;
+        static IDate the_arrival_deadline;
     }
 
     public class when_attempting_to_inject_a_null_arrival_deadline_into_the_route_specification_factory : concern_for_route_specification_factory
@@ -65,7 +65,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         static ILocation the_origin_location;
         static ILocation the_destination_location;
-        static IArrivalDeadline the_arrival_deadline;
+        static IDate the_arrival_deadline;
     }
 
     public class when_attempting_to_inject_the_same_origin_and_destination_locations_into_the_route_specification_factory : concern_for_route_specification_factory
@@ -74,7 +74,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         {
             the_origin_location = an<ILocation>();
             the_destination_location = an<ILocation>();
-            the_arrival_deadline = an<IArrivalDeadline>();
+            the_arrival_deadline = an<IDate>();
 
             the_origin_location
                 .Stub(x => x.has_the_same_value_as(the_destination_location))
@@ -90,6 +90,6 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         static ILocation the_origin_location;
         static ILocation the_destination_location;
-        static IArrivalDeadline the_arrival_deadline;
+        static IDate the_arrival_deadline;
     }
 }

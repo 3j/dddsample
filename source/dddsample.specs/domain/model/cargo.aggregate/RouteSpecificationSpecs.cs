@@ -11,7 +11,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         {
             the_origin_location = an<ILocation>();
             the_destination_location = an<ILocation>();
-            the_arrival_deadline = an<IArrivalDeadline>();
+            the_arrival_deadline = an<IDate>();
             the_route_specification_factory = new RouteSpecificationFactory();
 
             create_sut_using(() =>
@@ -21,7 +21,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         protected static ILocation the_origin_location;
         protected static ILocation the_destination_location;
-        protected static IArrivalDeadline the_arrival_deadline;
+        protected static IDate the_arrival_deadline;
         protected static RouteSpecificationFactory the_route_specification_factory;
     }
 
@@ -49,7 +49,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_give_back_the_arrival_deadline = () => result.ShouldEqual(the_arrival_deadline);
 
-        static IArrivalDeadline result;
+        static IDate result;
     }
 
     public class when_asked_if_the_specification_is_satisfied_by_an_itinerary_that_satisfies_the_route_specification : concern_for_route_specification
@@ -66,7 +66,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                 .Return(an<ILocation>());
             the_itinerary_that_satisfies_the_route_specification
                 .Stub(x => x.final_arrival_date())
-                .Return(an<IArrivalDeadline>());
+                .Return(an<IDate>());
 
             the_origin_location
                 .Stub(x => x.has_the_same_value_as(
@@ -77,7 +77,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                     the_itinerary_that_satisfies_the_route_specification.final_arrival_location()))
                 .Return(true);
             the_arrival_deadline
-                .Stub(x => x.is_afterwards_than(
+                .Stub(x => x.is_posterior_to(
                     the_itinerary_that_satisfies_the_route_specification.final_arrival_date()))
                 .Return(true);
         };
@@ -107,7 +107,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_leverage_the_arrival_deadline_time_check = () =>
             the_arrival_deadline
-               .received(x => x.is_afterwards_than(
+               .received(x => x.is_posterior_to(
                    the_itinerary_that_satisfies_the_route_specification.final_arrival_date()));
 
         static bool result;
@@ -155,7 +155,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_not_leverage_the_arrival_deadline_time_check = () =>
             the_arrival_deadline
-               .never_received(x => x.is_afterwards_than(
+               .never_received(x => x.is_posterior_to(
                    the_itinerary_with_an_invalid_initial_departure_location.final_arrival_date()));
 
         static bool result;
@@ -210,7 +210,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_not_leverage_the_arrival_deadline_time_check = () =>
             the_arrival_deadline
-               .never_received(x => x.is_afterwards_than(
+               .never_received(x => x.is_posterior_to(
                    the_itinerary_with_an_invalid_final_arrival_location.final_arrival_date()));
 
         static bool result;
@@ -231,7 +231,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                 .Return(an<ILocation>());
             the_itinerary_with_an_invalid_final_arrival_date
                 .Stub(x => x.final_arrival_date())
-                .Return(an<IArrivalDeadline>());
+                .Return(an<IDate>());
 
             the_origin_location
                 .Stub(x => x.has_the_same_value_as(
@@ -242,7 +242,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                     the_itinerary_with_an_invalid_final_arrival_date.final_arrival_location()))
                 .Return(true);
             the_arrival_deadline
-                .Stub(x => x.is_afterwards_than(
+                .Stub(x => x.is_posterior_to(
                     the_itinerary_with_an_invalid_final_arrival_date.final_arrival_date()))
                 .Return(false);
         };
@@ -272,7 +272,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_leverage_the_arrival_deadline_time_check = () =>
             the_arrival_deadline
-               .received(x => x.is_afterwards_than(
+               .received(x => x.is_posterior_to(
                    the_itinerary_with_an_invalid_final_arrival_date.final_arrival_date()));
 
         static bool result;
@@ -300,7 +300,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_not_leverage_the_arrival_deadline_time_check = () =>
             the_arrival_deadline
-               .never_received(x => x.is_afterwards_than(an<IArrivalDeadline>()));
+               .never_received(x => x.is_posterior_to(an<IDate>()));
 
         static bool result;
         static IItinerary the_null_itinerary;

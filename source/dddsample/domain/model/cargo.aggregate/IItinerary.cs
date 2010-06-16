@@ -6,6 +6,6 @@ namespace dddsample.domain.model.cargo.aggregate
     {
         ILocation initial_departure_location();
         ILocation final_arrival_location();
-        IArrivalDeadline final_arrival_date();
+        IDate final_arrival_date();
     }
 }
