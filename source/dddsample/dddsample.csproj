@@ -45,11 +45,13 @@
     <Compile Include="domain\model\cargo.aggregate\IDate.cs" />
     <Compile Include="domain\model\cargo.aggregate\ICargo.cs" />
     <Compile Include="domain\model\cargo.aggregate\IItinerary.cs" />
+    <Compile Include="domain\model\cargo.aggregate\ILeg.cs" />
     <Compile Include="domain\model\cargo.aggregate\ILocation.cs" />
     <Compile Include="domain\model\cargo.aggregate\IRouteSpecification.cs" />
     <Compile Include="domain\model\cargo.aggregate\ITrackingId.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteSpecification.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteSpecificationFactory.cs" />
+    <Compile Include="scratchpad\TransportStatus.cs" />
     <Compile Include="domain\shared\AndSpecification.cs" />
     <Compile Include="domain\shared\IDomainEvent.cs" />
     <Compile Include="domain\shared\IEntity.cs" />

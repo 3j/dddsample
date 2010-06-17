@@ -121,7 +121,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         Because of = () => result = sut.GetHashCode();
 
         It should_return_the_hash_code_based_on_the_construction_datetime_hash_code = () => 
-            result.ShouldEqual(31 * 397 + the_datetime.GetHashCode());
+            result.ShouldEqual(the_datetime.GetHashCode());
 
         static int result;
         static DateTime the_datetime;

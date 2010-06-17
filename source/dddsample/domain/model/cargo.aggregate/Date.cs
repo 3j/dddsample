@@ -23,9 +23,7 @@ namespace dddsample.domain.model.cargo.aggregate
 
         public override int GetHashCode()
         {
-            var result = 31;
-            result = result * 397 + this.underlying_date.GetHashCode();
-            return result;
+            return this.underlying_date.GetHashCode();
         }
 
         public DateTime datetime_value()
