@@ -7,15 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dddsample", "dddsample\ddds
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentation", "{EED10863-C85E-4D8C-816C-43DBCD75DA21}"
 	ProjectSection(SolutionItems) = preProject
-		..\documentation\(OBSOLETO - VER LOS CAPITULOS NUMERADOS DDD_Sample_0x) DDD_Sample Proceso.odt = ..\documentation\(OBSOLETO - VER LOS CAPITULOS NUMERADOS DDD_Sample_0x) DDD_Sample Proceso.odt
 		..\documentation\DDD_Sample Pequenas particularidades Java vs C#.odt = ..\documentation\DDD_Sample Pequenas particularidades Java vs C#.odt
-		..\documentation\DDD_Sample Primeros Pasos con GIT.odt = ..\documentation\DDD_Sample Primeros Pasos con GIT.odt
-		..\documentation\DDD_Sample TODO LIST.odt = ..\documentation\DDD_Sample TODO LIST.odt
 		..\documentation\DDD_Sample_01_Interfaces_DDD.odt = ..\documentation\DDD_Sample_01_Interfaces_DDD.odt
 		..\documentation\DDD_Sample_02_El_patron_DDD_Specification.odt = ..\documentation\DDD_Sample_02_El_patron_DDD_Specification.odt
 		..\documentation\DDD_Sample_03_DDD_Aggregate_Root_Cargo.odt = ..\documentation\DDD_Sample_03_DDD_Aggregate_Root_Cargo.odt
 		..\documentation\DDD_Sample_04_DDD_Value_Object_Route_Specification.odt = ..\documentation\DDD_Sample_04_DDD_Value_Object_Route_Specification.odt
-		..\documentation\DDD_Sample_05_Nueva_Seccion.odt = ..\documentation\DDD_Sample_05_Nueva_Seccion.odt
+		..\documentation\DDD_Sample_05_DDD_Value_Object_Itinerary-Aplicando_BDD_a_codigo_ya_existente.odt = ..\documentation\DDD_Sample_05_DDD_Value_Object_Itinerary-Aplicando_BDD_a_codigo_ya_existente.odt
+		..\documentation\DDD_Sample_Primeros_Pasos_con_GIT.odt = ..\documentation\DDD_Sample_Primeros_Pasos_con_GIT.odt
+		..\documentation\DDD_Sample_TODO_LIST.odt = ..\documentation\DDD_Sample_TODO_LIST.odt
 	EndProjectSection
 EndProject
 Global

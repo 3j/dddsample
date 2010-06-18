@@ -12,4 +12,6 @@ namespace dddsample.domain.model.cargo.aggregate
         IList<ILeg> legs();
         int GetHashCode();
     }
+
+    
 }

@@ -1,4 +1,5 @@
 ﻿using dddsample.domain.model.location.aggregate;
+using dddsample.domain.model.voyage.aggregate;
 using dddsample.domain.shared;
 
 namespace dddsample.domain.model.cargo.aggregate
@@ -8,5 +9,6 @@ namespace dddsample.domain.model.cargo.aggregate
         ILocation load_location();
         ILocation unload_location();
         IDate unload_time();
+        IVoyage voyage();
     }
 }
