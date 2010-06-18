@@ -1,5 +1,6 @@
 using System;
 using dddsample.domain.model.cargo.aggregate;
+using dddsample.domain.model.location.aggregate;
 using Machine.Specifications;
 using Machine.Specifications.DevelopWithPassion.Rhino;
 using Rhino.Mocks;
@@ -77,7 +78,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             the_arrival_deadline = an<IDate>();
 
             the_origin_location
-                .Stub(x => x.has_the_same_value_as(the_destination_location))
+                .Stub(x => x.has_the_same_identity_as(the_destination_location))
                 .Return(true);
         };
 

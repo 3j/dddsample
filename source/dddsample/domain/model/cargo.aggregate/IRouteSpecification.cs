@@ -1,4 +1,5 @@
 ﻿using System;
+using dddsample.domain.model.location.aggregate;
 using dddsample.domain.shared;
 
 namespace dddsample.domain.model.cargo.aggregate

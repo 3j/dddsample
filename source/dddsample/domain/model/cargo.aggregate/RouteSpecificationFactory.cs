@@ -1,4 +1,5 @@
 ﻿using System;
+using dddsample.domain.model.location.aggregate;
 
 namespace dddsample.domain.model.cargo.aggregate
 {
@@ -18,7 +19,7 @@ namespace dddsample.domain.model.cargo.aggregate
                 throw new ArgumentNullException("the_arrival_deadline",
                                                 "Invariant Violated: arrival deadline is required.");
 
-            if (the_origin_location.has_the_same_value_as(the_destination_location))
+            if (the_origin_location.has_the_same_identity_as(the_destination_location))
                 throw new ArgumentException("Invariant Violated: origin and destination locations can't be the same.");
 
             return new RouteSpecification(the_origin_location, the_destination_location, the_arrival_deadline);

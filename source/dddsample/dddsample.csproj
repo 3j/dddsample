@@ -46,7 +46,7 @@
     <Compile Include="domain\model\cargo.aggregate\ICargo.cs" />
     <Compile Include="domain\model\cargo.aggregate\IItinerary.cs" />
     <Compile Include="domain\model\cargo.aggregate\ILeg.cs" />
-    <Compile Include="domain\model\cargo.aggregate\ILocation.cs" />
+    <Compile Include="domain\model\location.aggregate\ILocation.cs" />
     <Compile Include="domain\model\cargo.aggregate\IRouteSpecification.cs" />
     <Compile Include="domain\model\cargo.aggregate\ITrackingId.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteSpecification.cs" />

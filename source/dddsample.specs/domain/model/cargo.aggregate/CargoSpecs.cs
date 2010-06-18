@@ -1,5 +1,6 @@
 using System;
 using dddsample.domain.model.cargo.aggregate;
+using dddsample.domain.model.location.aggregate;
 using Machine.Specifications;
 using Machine.Specifications.DevelopWithPassion.Rhino;
 using Rhino.Mocks;

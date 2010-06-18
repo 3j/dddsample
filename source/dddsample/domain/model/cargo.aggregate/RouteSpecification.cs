@@ -1,4 +1,5 @@
 ﻿using System;
+using dddsample.domain.model.location.aggregate;
 
 namespace dddsample.domain.model.cargo.aggregate
 {
@@ -33,17 +34,17 @@ namespace dddsample.domain.model.cargo.aggregate
         public bool has_the_same_value_as(IRouteSpecification the_other)
         {
             return the_other != null &&
-                   this.underlying_origin_location.has_the_same_value_as(the_other.origin()) &&
-                   this.underlying_destination_location.has_the_same_value_as(the_other.destination()) &&
+                   this.underlying_origin_location.has_the_same_identity_as(the_other.origin()) &&
+                   this.underlying_destination_location.has_the_same_identity_as(the_other.destination()) &&
                    this.underlying_arrival_deadline.has_the_same_value_as(the_other.arrival_dealine());
         }
 
         public bool is_satisfied_by(IItinerary the_itinerary)
         {
             return the_itinerary != null &&
-                   underlying_origin_location.has_the_same_value_as(
+                   underlying_origin_location.has_the_same_identity_as(
                        the_itinerary.initial_departure_location()) &&
-                   underlying_destination_location.has_the_same_value_as(
+                   underlying_destination_location.has_the_same_identity_as(
                        the_itinerary.final_arrival_location()) &&
                    underlying_arrival_deadline.is_posterior_to(
                        the_itinerary.final_arrival_date());

@@ -1,4 +1,5 @@
 using dddsample.domain.model.cargo.aggregate;
+using dddsample.domain.model.location.aggregate;
 using Machine.Specifications;
 using Machine.Specifications.DevelopWithPassion.Rhino;
 using Rhino.Mocks;
@@ -69,11 +70,11 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                 .Return(an<IDate>());
 
             the_origin_location
-                .Stub(x => x.has_the_same_value_as(
+                .Stub(x => x.has_the_same_identity_as(
                     the_itinerary_that_satisfies_the_route_specification.initial_departure_location()))
                 .Return(true);
             the_destination_location
-                .Stub(x => x.has_the_same_value_as(
+                .Stub(x => x.has_the_same_identity_as(
                     the_itinerary_that_satisfies_the_route_specification.final_arrival_location()))
                 .Return(true);
             the_arrival_deadline
@@ -91,7 +92,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_leverage_the_origin_location_identity_comparer = () =>
             the_origin_location
-               .received(x => x.has_the_same_value_as(
+               .received(x => x.has_the_same_identity_as(
                   the_itinerary_that_satisfies_the_route_specification.initial_departure_location()));
 
         It should_leverage_the_itinerary_final_arrival_location = () =>
@@ -99,7 +100,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_leverage_the_destination_location_identity_comparer = () =>
             the_destination_location
-                .received(x => x.has_the_same_value_as(
+                .received(x => x.has_the_same_identity_as(
                     the_itinerary_that_satisfies_the_route_specification.final_arrival_location()));
 
         It should_leverage_the_itinerary_final_arrival_date = () =>
@@ -125,7 +126,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                 .Return(an<ILocation>());
 
             the_origin_location
-                .Stub(x => x.has_the_same_value_as(
+                .Stub(x => x.has_the_same_identity_as(
                     the_itinerary_with_an_invalid_initial_departure_location.initial_departure_location()))
                 .Return(false);
         };
@@ -139,7 +140,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_leverage_the_origin_location_identity_comparer = () =>
             the_origin_location
-               .received(x => x.has_the_same_value_as(
+               .received(x => x.has_the_same_identity_as(
                   the_itinerary_with_an_invalid_initial_departure_location.initial_departure_location()));
 
         It should_not_leverage_the_itinerary_final_arrival_location = () =>
@@ -147,7 +148,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_not_leverage_the_destination_location_identity_comparer = () =>
             the_destination_location
-                .never_received(x => x.has_the_same_value_as(
+                .never_received(x => x.has_the_same_identity_as(
                     the_itinerary_with_an_invalid_initial_departure_location.final_arrival_location()));
 
         It should_not_leverage_the_itinerary_final_arrival_date = () =>
@@ -176,11 +177,11 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                 .Return(an<ILocation>());
 
             the_origin_location
-                .Stub(x => x.has_the_same_value_as(
+                .Stub(x => x.has_the_same_identity_as(
                     the_itinerary_with_an_invalid_final_arrival_location.initial_departure_location()))
                 .Return(true);
             the_destination_location
-                .Stub(x => x.has_the_same_value_as(
+                .Stub(x => x.has_the_same_identity_as(
                     the_itinerary_with_an_invalid_final_arrival_location.final_arrival_location()))
                 .Return(false);
         };
@@ -194,7 +195,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_leverage_the_origin_location_identity_comparer = () =>
             the_origin_location
-               .received(x => x.has_the_same_value_as(
+               .received(x => x.has_the_same_identity_as(
                   the_itinerary_with_an_invalid_final_arrival_location.initial_departure_location()));
 
         It should_leverage_the_itinerary_final_arrival_location = () =>
@@ -202,7 +203,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_leverage_the_destination_location_identity_comparer = () =>
             the_destination_location
-                .received(x => x.has_the_same_value_as(
+                .received(x => x.has_the_same_identity_as(
                     the_itinerary_with_an_invalid_final_arrival_location.final_arrival_location()));
 
         It should_not_leverage_the_itinerary_final_arrival_date = () =>
@@ -234,11 +235,11 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                 .Return(an<IDate>());
 
             the_origin_location
-                .Stub(x => x.has_the_same_value_as(
+                .Stub(x => x.has_the_same_identity_as(
                     the_itinerary_with_an_invalid_final_arrival_date.initial_departure_location()))
                 .Return(true);
             the_destination_location
-                .Stub(x => x.has_the_same_value_as(
+                .Stub(x => x.has_the_same_identity_as(
                     the_itinerary_with_an_invalid_final_arrival_date.final_arrival_location()))
                 .Return(true);
             the_arrival_deadline
@@ -256,7 +257,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_leverage_the_origin_location_identity_comparer = () =>
             the_origin_location
-               .received(x => x.has_the_same_value_as(
+               .received(x => x.has_the_same_identity_as(
                   the_itinerary_with_an_invalid_final_arrival_date.initial_departure_location()));
 
         It should_leverage_the_itinerary_final_arrival_location = () =>
@@ -264,7 +265,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_leverage_the_destination_location_identity_comparer = () =>
             the_destination_location
-                .received(x => x.has_the_same_value_as(
+                .received(x => x.has_the_same_identity_as(
                     the_itinerary_with_an_invalid_final_arrival_date.final_arrival_location()));
 
         It should_leverage_the_itinerary_final_arrival_date = () =>
@@ -292,11 +293,11 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_not_leverage_the_origin_location_identity_comparer = () =>
             the_origin_location
-                .never_received(x => x.has_the_same_value_as(an<ILocation>()));
+                .never_received(x => x.has_the_same_identity_as(an<ILocation>()));
 
         It should_not_leverage_the_destination_location_identity_comparer = () =>
             the_destination_location
-                .never_received(x => x.has_the_same_value_as(an<ILocation>()));
+                .never_received(x => x.has_the_same_identity_as(an<ILocation>()));
 
         It should_not_leverage_the_arrival_deadline_time_check = () =>
             the_arrival_deadline
@@ -316,14 +317,14 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                 .Stub(x => x.origin())
                 .Return(the_origin_location);
             the_origin_location
-                .Stub(x => x.has_the_same_value_as(the_origin_location))
+                .Stub(x => x.has_the_same_identity_as(the_origin_location))
                 .Return(true);
 
             the_other_route_specification
                 .Stub(x => x.destination())
                 .Return(the_destination_location);
             the_destination_location
-                .Stub(x => x.has_the_same_value_as(the_destination_location))
+                .Stub(x => x.has_the_same_identity_as(the_destination_location))
                 .Return(true);
 
             the_other_route_specification
@@ -339,10 +340,10 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         It should_confirm_that_they_have_the_same_value = () => result.ShouldBeTrue();
 
         It should_leverage_the_origin_location_value_comparer =
-            () => the_origin_location.received(x => x.has_the_same_value_as(the_origin_location));
+            () => the_origin_location.received(x => x.has_the_same_identity_as(the_origin_location));
 
         It should_leverage_the_destination_location_value_comparer =
-            () => the_destination_location.received(x => x.has_the_same_value_as(the_destination_location));
+            () => the_destination_location.received(x => x.has_the_same_identity_as(the_destination_location));
 
         It should_leverage_the_arrival_deadline_value_comparer =
             () => the_arrival_deadline.received(x => x.has_the_same_value_as(the_arrival_deadline));
@@ -361,7 +362,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                 .Stub(x => x.origin())
                 .Return(the_origin_location);
             the_origin_location
-                .Stub(x => x.has_the_same_value_as(the_origin_location))
+                .Stub(x => x.has_the_same_identity_as(the_origin_location))
                 .Return(false);
         };
 
@@ -370,10 +371,10 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         It should_confirm_that_they_have_different_value = () => result.ShouldBeFalse();
 
         It should_leverage_the_origin_location_value_comparer =
-            () => the_origin_location.received(x => x.has_the_same_value_as(the_origin_location));
+            () => the_origin_location.received(x => x.has_the_same_identity_as(the_origin_location));
 
         It should_not_leverage_the_destination_location_value_comparer =
-            () => the_destination_location.never_received(x => x.has_the_same_value_as(the_destination_location));
+            () => the_destination_location.never_received(x => x.has_the_same_identity_as(the_destination_location));
 
         It should_not_leverage_the_arrival_deadline_value_comparer =
             () => the_arrival_deadline.never_received(x => x.has_the_same_value_as(the_arrival_deadline));
@@ -392,14 +393,14 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                 .Stub(x => x.origin())
                 .Return(the_origin_location);
             the_origin_location
-                .Stub(x => x.has_the_same_value_as(the_origin_location))
+                .Stub(x => x.has_the_same_identity_as(the_origin_location))
                 .Return(true);
 
             the_other_route_specification
                 .Stub(x => x.destination())
                 .Return(the_destination_location);
             the_destination_location
-                .Stub(x => x.has_the_same_value_as(the_destination_location))
+                .Stub(x => x.has_the_same_identity_as(the_destination_location))
                 .Return(false);
         };
 
@@ -408,10 +409,10 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         It should_confirm_that_they_have_different_value = () => result.ShouldBeFalse();
 
         It should_leverage_the_origin_location_value_comparer =
-            () => the_origin_location.received(x => x.has_the_same_value_as(the_origin_location));
+            () => the_origin_location.received(x => x.has_the_same_identity_as(the_origin_location));
 
         It should_leverage_the_destination_location_value_comparer =
-            () => the_destination_location.received(x => x.has_the_same_value_as(the_destination_location));
+            () => the_destination_location.received(x => x.has_the_same_identity_as(the_destination_location));
 
         It should_not_leverage_the_arrival_deadline_value_comparer =
             () => the_arrival_deadline.never_received(x => x.has_the_same_value_as(the_arrival_deadline));
@@ -430,14 +431,14 @@ namespace dddsample.specs.domain.model.cargo.aggregate
                 .Stub(x => x.origin())
                 .Return(the_origin_location);
             the_origin_location
-                .Stub(x => x.has_the_same_value_as(the_origin_location))
+                .Stub(x => x.has_the_same_identity_as(the_origin_location))
                 .Return(true);
 
             the_other_route_specification
                 .Stub(x => x.destination())
                 .Return(the_destination_location);
             the_destination_location
-                .Stub(x => x.has_the_same_value_as(the_destination_location))
+                .Stub(x => x.has_the_same_identity_as(the_destination_location))
                 .Return(true);
 
             the_other_route_specification
@@ -453,10 +454,10 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         It should_confirm_that_they_have_different_value = () => result.ShouldBeFalse();
 
         It should_leverage_the_origin_location_value_comparer =
-            () => the_origin_location.received(x => x.has_the_same_value_as(the_origin_location));
+            () => the_origin_location.received(x => x.has_the_same_identity_as(the_origin_location));
 
         It should_leverage_the_destination_location_value_comparer =
-            () => the_destination_location.received(x => x.has_the_same_value_as(the_destination_location));
+            () => the_destination_location.received(x => x.has_the_same_identity_as(the_destination_location));
 
         It should_leverage_the_arrival_deadline_value_comparer =
             () => the_arrival_deadline.received(x => x.has_the_same_value_as(the_arrival_deadline));
@@ -477,10 +478,10 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         It should_confirm_that_they_have_different_value = () => result.ShouldBeFalse();
 
         It should_not_leverage_the_origin_location_value_comparer =
-            () => the_origin_location.never_received(x => x.has_the_same_value_as(the_origin_location));
+            () => the_origin_location.never_received(x => x.has_the_same_identity_as(the_origin_location));
 
         It should_not_leverage_the_destination_location_value_comparer =
-            () => the_destination_location.never_received(x => x.has_the_same_value_as(the_destination_location));
+            () => the_destination_location.never_received(x => x.has_the_same_identity_as(the_destination_location));
 
         It should_not_leverage_the_arrival_deadline_value_comparer =
             () => the_arrival_deadline.never_received(x => x.has_the_same_value_as(the_arrival_deadline));
