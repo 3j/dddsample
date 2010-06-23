@@ -60,10 +60,10 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             the_itinerary_that_satisfies_the_route_specification = an<IItinerary>();
 
             the_itinerary_that_satisfies_the_route_specification
-                .Stub(x => x.initial_departure_location())
+                .Stub(x => x.initial_departure_load_location())
                 .Return(an<ILocation>());
             the_itinerary_that_satisfies_the_route_specification
-                .Stub(x => x.final_arrival_location())
+                .Stub(x => x.final_arrival_unload_location())
                 .Return(an<ILocation>());
             the_itinerary_that_satisfies_the_route_specification
                 .Stub(x => x.final_arrival_date())
@@ -71,11 +71,11 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
             the_origin_location
                 .Stub(x => x.has_the_same_identity_as(
-                    the_itinerary_that_satisfies_the_route_specification.initial_departure_location()))
+                    the_itinerary_that_satisfies_the_route_specification.initial_departure_load_location()))
                 .Return(true);
             the_destination_location
                 .Stub(x => x.has_the_same_identity_as(
-                    the_itinerary_that_satisfies_the_route_specification.final_arrival_location()))
+                    the_itinerary_that_satisfies_the_route_specification.final_arrival_unload_location()))
                 .Return(true);
             the_arrival_deadline
                 .Stub(x => x.is_posterior_to(
@@ -88,20 +88,20 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         It should_confirm_that_the_itinerary_satisfies_the_route_specification = () => result.ShouldBeTrue();
 
         It should_leverage_the_itinerary_initial_departure_location = () =>
-            the_itinerary_that_satisfies_the_route_specification.received(x => x.initial_departure_location());
+            the_itinerary_that_satisfies_the_route_specification.received(x => x.initial_departure_load_location());
 
         It should_leverage_the_origin_location_identity_comparer = () =>
             the_origin_location
                .received(x => x.has_the_same_identity_as(
-                  the_itinerary_that_satisfies_the_route_specification.initial_departure_location()));
+                  the_itinerary_that_satisfies_the_route_specification.initial_departure_load_location()));
 
         It should_leverage_the_itinerary_final_arrival_location = () =>
-            the_itinerary_that_satisfies_the_route_specification.received(x => x.final_arrival_location());
+            the_itinerary_that_satisfies_the_route_specification.received(x => x.final_arrival_unload_location());
 
         It should_leverage_the_destination_location_identity_comparer = () =>
             the_destination_location
                 .received(x => x.has_the_same_identity_as(
-                    the_itinerary_that_satisfies_the_route_specification.final_arrival_location()));
+                    the_itinerary_that_satisfies_the_route_specification.final_arrival_unload_location()));
 
         It should_leverage_the_itinerary_final_arrival_date = () =>
             the_itinerary_that_satisfies_the_route_specification.received(x => x.final_arrival_date());
@@ -122,12 +122,12 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             the_itinerary_with_an_invalid_initial_departure_location = an<IItinerary>();
 
             the_itinerary_with_an_invalid_initial_departure_location
-                .Stub(x => x.initial_departure_location())
+                .Stub(x => x.initial_departure_load_location())
                 .Return(an<ILocation>());
 
             the_origin_location
                 .Stub(x => x.has_the_same_identity_as(
-                    the_itinerary_with_an_invalid_initial_departure_location.initial_departure_location()))
+                    the_itinerary_with_an_invalid_initial_departure_location.initial_departure_load_location()))
                 .Return(false);
         };
 
@@ -136,20 +136,20 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         It should_confirm_that_the_itinerary_does_not_satisfy_the_route_specification = () => result.ShouldBeFalse();
 
         It should_leverage_the_itinerary_initial_departure_location = () =>
-            the_itinerary_with_an_invalid_initial_departure_location.received(x => x.initial_departure_location());
+            the_itinerary_with_an_invalid_initial_departure_location.received(x => x.initial_departure_load_location());
 
         It should_leverage_the_origin_location_identity_comparer = () =>
             the_origin_location
                .received(x => x.has_the_same_identity_as(
-                  the_itinerary_with_an_invalid_initial_departure_location.initial_departure_location()));
+                  the_itinerary_with_an_invalid_initial_departure_location.initial_departure_load_location()));
 
         It should_not_leverage_the_itinerary_final_arrival_location = () =>
-            the_itinerary_with_an_invalid_initial_departure_location.never_received(x => x.final_arrival_location());
+            the_itinerary_with_an_invalid_initial_departure_location.never_received(x => x.final_arrival_unload_location());
 
         It should_not_leverage_the_destination_location_identity_comparer = () =>
             the_destination_location
                 .never_received(x => x.has_the_same_identity_as(
-                    the_itinerary_with_an_invalid_initial_departure_location.final_arrival_location()));
+                    the_itinerary_with_an_invalid_initial_departure_location.final_arrival_unload_location()));
 
         It should_not_leverage_the_itinerary_final_arrival_date = () =>
             the_itinerary_with_an_invalid_initial_departure_location.never_received(x => x.final_arrival_date());
@@ -170,19 +170,19 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             the_itinerary_with_an_invalid_final_arrival_location = an<IItinerary>();
 
             the_itinerary_with_an_invalid_final_arrival_location
-                .Stub(x => x.initial_departure_location())
+                .Stub(x => x.initial_departure_load_location())
                 .Return(an<ILocation>());
             the_itinerary_with_an_invalid_final_arrival_location
-                .Stub(x => x.final_arrival_location())
+                .Stub(x => x.final_arrival_unload_location())
                 .Return(an<ILocation>());
 
             the_origin_location
                 .Stub(x => x.has_the_same_identity_as(
-                    the_itinerary_with_an_invalid_final_arrival_location.initial_departure_location()))
+                    the_itinerary_with_an_invalid_final_arrival_location.initial_departure_load_location()))
                 .Return(true);
             the_destination_location
                 .Stub(x => x.has_the_same_identity_as(
-                    the_itinerary_with_an_invalid_final_arrival_location.final_arrival_location()))
+                    the_itinerary_with_an_invalid_final_arrival_location.final_arrival_unload_location()))
                 .Return(false);
         };
 
@@ -191,20 +191,20 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         It should_confirm_that_the_itinerary_does_not_satisfy_the_route_specification = () => result.ShouldBeFalse();
 
         It should_leverage_the_itinerary_initial_departure_location = () =>
-            the_itinerary_with_an_invalid_final_arrival_location.received(x => x.initial_departure_location());
+            the_itinerary_with_an_invalid_final_arrival_location.received(x => x.initial_departure_load_location());
 
         It should_leverage_the_origin_location_identity_comparer = () =>
             the_origin_location
                .received(x => x.has_the_same_identity_as(
-                  the_itinerary_with_an_invalid_final_arrival_location.initial_departure_location()));
+                  the_itinerary_with_an_invalid_final_arrival_location.initial_departure_load_location()));
 
         It should_leverage_the_itinerary_final_arrival_location = () =>
-            the_itinerary_with_an_invalid_final_arrival_location.received(x => x.final_arrival_location());
+            the_itinerary_with_an_invalid_final_arrival_location.received(x => x.final_arrival_unload_location());
 
         It should_leverage_the_destination_location_identity_comparer = () =>
             the_destination_location
                 .received(x => x.has_the_same_identity_as(
-                    the_itinerary_with_an_invalid_final_arrival_location.final_arrival_location()));
+                    the_itinerary_with_an_invalid_final_arrival_location.final_arrival_unload_location()));
 
         It should_not_leverage_the_itinerary_final_arrival_date = () =>
             the_itinerary_with_an_invalid_final_arrival_location.never_received(x => x.final_arrival_date());
@@ -225,10 +225,10 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             the_itinerary_with_an_invalid_final_arrival_date = an<IItinerary>();
 
             the_itinerary_with_an_invalid_final_arrival_date
-                .Stub(x => x.initial_departure_location())
+                .Stub(x => x.initial_departure_load_location())
                 .Return(an<ILocation>());
             the_itinerary_with_an_invalid_final_arrival_date
-                .Stub(x => x.final_arrival_location())
+                .Stub(x => x.final_arrival_unload_location())
                 .Return(an<ILocation>());
             the_itinerary_with_an_invalid_final_arrival_date
                 .Stub(x => x.final_arrival_date())
@@ -236,11 +236,11 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
             the_origin_location
                 .Stub(x => x.has_the_same_identity_as(
-                    the_itinerary_with_an_invalid_final_arrival_date.initial_departure_location()))
+                    the_itinerary_with_an_invalid_final_arrival_date.initial_departure_load_location()))
                 .Return(true);
             the_destination_location
                 .Stub(x => x.has_the_same_identity_as(
-                    the_itinerary_with_an_invalid_final_arrival_date.final_arrival_location()))
+                    the_itinerary_with_an_invalid_final_arrival_date.final_arrival_unload_location()))
                 .Return(true);
             the_arrival_deadline
                 .Stub(x => x.is_posterior_to(
@@ -253,20 +253,20 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         It should_confirm_that_the_itinerary_does_not_satisfy_the_route_specification = () => result.ShouldBeFalse();
 
         It should_leverage_the_itinerary_initial_departure_location = () =>
-            the_itinerary_with_an_invalid_final_arrival_date.received(x => x.initial_departure_location());
+            the_itinerary_with_an_invalid_final_arrival_date.received(x => x.initial_departure_load_location());
 
         It should_leverage_the_origin_location_identity_comparer = () =>
             the_origin_location
                .received(x => x.has_the_same_identity_as(
-                  the_itinerary_with_an_invalid_final_arrival_date.initial_departure_location()));
+                  the_itinerary_with_an_invalid_final_arrival_date.initial_departure_load_location()));
 
         It should_leverage_the_itinerary_final_arrival_location = () =>
-            the_itinerary_with_an_invalid_final_arrival_date.received(x => x.final_arrival_location());
+            the_itinerary_with_an_invalid_final_arrival_date.received(x => x.final_arrival_unload_location());
 
         It should_leverage_the_destination_location_identity_comparer = () =>
             the_destination_location
                 .received(x => x.has_the_same_identity_as(
-                    the_itinerary_with_an_invalid_final_arrival_date.final_arrival_location()));
+                    the_itinerary_with_an_invalid_final_arrival_date.final_arrival_unload_location()));
 
         It should_leverage_the_itinerary_final_arrival_date = () =>
             the_itinerary_with_an_invalid_final_arrival_date.received(x => x.final_arrival_date());

@@ -21,25 +21,20 @@ namespace dddsample.domain.model.cargo.aggregate
         
         static readonly IDate END_OF_DAYS = new Date(DateTime.MaxValue);
 
-        
-        IList<ILeg> underlying_leg_collection = new List<ILeg>();
+        readonly IList<ILeg> underlying_leg_collection = new List<ILeg>();
 
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        /// <param name="legs">List of legs for this itinerary.</param>
-        public Itinerary(List<ILeg> legs)
+        public Itinerary(IList<ILeg> the_associated_leg_collection)
         {
-            if (legs.Count == 0)
-                throw new ArgumentNullException("legs", "The list of legs cannot be empty.");
+            if (the_associated_leg_collection.Count == 0)
+                throw new ArgumentNullException("the_associated_leg_collection", "The injected leg collection cannot be empty.");
 
-            ILeg null_leg = null;
-            if (legs.Contains(null_leg))
-                throw new NoNullAllowedException("The legs list cannot contain null elements.");
+            ILeg a_null_leg = null;
+            if (the_associated_leg_collection.Contains(a_null_leg))
+                throw new NoNullAllowedException("The injected leg collection cannot contain null Leg elements.");
 
-            this.underlying_leg_collection = legs;
+            this.underlying_leg_collection = the_associated_leg_collection;
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -103,40 +98,25 @@ namespace dddsample.domain.model.cargo.aggregate
             //HandlingEvent.Type.CUSTOMS;
             return true;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>The initial departure location.</returns>
-        public ILocation initial_departure_location()
+        
+        public ILocation initial_departure_load_location()
         {
-            if (underlying_leg_collection.Count == 0)
-                return  LocationImplementationExample.UNKNOWN ;
-            return underlying_leg_collection[0].load_location();
+            return the_initial_leg().load_location();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>The final arrival location.</returns>
-        public ILocation final_arrival_location()
+        ILeg the_initial_leg()
         {
-            if (underlying_leg_collection.Count == 0)
-                return LocationImplementationExample.UNKNOWN;
-            return lastLeg().unload_location();
+            return underlying_leg_collection[0];
+        }
+        
+        public ILocation final_arrival_unload_location()
+        {
+            return the_last_leg().unload_location();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>Date when cargo arrives at final destination.</returns>
-        public IDate final_arrival_date()
+        ILeg the_last_leg()
         {
-            ILeg lastLeg = this.lastLeg();
-
-            if (lastLeg == null)
-                return END_OF_DAYS;
-            return lastLeg.unload_time();
+            return underlying_leg_collection[underlying_leg_collection.Count - 1];
         }
 
         /// <summary>
@@ -147,14 +127,14 @@ namespace dddsample.domain.model.cargo.aggregate
         {
             if (underlying_leg_collection.Count == 0)
                 return null;
-            return underlying_leg_collection[underlying_leg_collection.Count - 1];
+            return the_last_leg();
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="the_other_itinerary">Itinerary to compare</param>
-        /// <returns><code>true</code> if the legs in this and the other itinerary are all equal.</returns>
+        public IDate final_arrival_date()
+        {
+            return the_last_leg().unload_time();
+        }
+        
         public bool has_the_same_value_as(IItinerary the_other_itinerary)
         {
             return the_other_itinerary != null &&

@@ -43,9 +43,9 @@ namespace dddsample.domain.model.cargo.aggregate
         {
             return the_itinerary != null &&
                    underlying_origin_location.has_the_same_identity_as(
-                       the_itinerary.initial_departure_location()) &&
+                       the_itinerary.initial_departure_load_location()) &&
                    underlying_destination_location.has_the_same_identity_as(
-                       the_itinerary.final_arrival_location()) &&
+                       the_itinerary.final_arrival_unload_location()) &&
                    underlying_arrival_deadline.is_posterior_to(
                        the_itinerary.final_arrival_date());
         }
