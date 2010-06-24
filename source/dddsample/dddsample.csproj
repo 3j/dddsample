@@ -55,7 +55,6 @@
     <Compile Include="domain\model\cargo.aggregate\ITrackingId.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteSpecification.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteSpecificationFactory.cs" />
-    <Compile Include="domain\model\location.aggregate\LocationImplementationExample.cs" />
     <Compile Include="domain\model\voyage.aggregate\IVoyage.cs" />
     <Compile Include="scratchpad\TransportStatus.cs" />
     <Compile Include="domain\shared\AndSpecification.cs" />

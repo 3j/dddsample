@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using dddsample.domain.model.cargo.aggregate;
+using dddsample.domain.model.handling.aggregate;
 using dddsample.domain.model.location.aggregate;
+using dddsample.domain.model.voyage.aggregate;
 using Machine.Specifications;
+using Machine.Specifications.DevelopWithPassion.Extensions;
 using Machine.Specifications.DevelopWithPassion.Rhino;
 using Rhino.Mocks;
 
@@ -22,7 +25,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             create_sut_using(() => new Itinerary(the_collection_of_legs));
         };
 
-        Because of = () => result = sut.legs();
+        Because of = () => result = sut.associated_legs();
         
         It should_return_its_collection_of_legs = () => result.ShouldEqual(the_collection_of_legs);
 
@@ -343,5 +346,525 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         static ILeg the_first_leg;
         static ILeg the_last_leg;
         static int the_collection_of_legs_hash_code;
+    }
+
+    public class when_receiving_an_expected_handling_event_of_type_RECEIVE : concern_for_itinerary
+    {
+        Establish context = () =>
+        {
+            the_expected_location = an<ILocation>();
+            a_receive_type_handling_event = an<IHandlingEvent>();
+
+            a_receive_type_handling_event
+                .Stub(x => x.type())
+                .Return(HandlingEventType.RECEIVE);
+
+            the_collection_of_legs = new List<ILeg>();
+            the_first_leg = an<ILeg>();
+            the_collection_of_legs.Add(the_first_leg);
+
+            the_first_leg
+                .Stub(x => x.load_location())
+                .Return(the_expected_location);
+            the_first_leg.load_location()
+                .Stub(x => x.has_the_same_identity_as(a_receive_type_handling_event.location()))
+                .Return(true);
+
+            create_sut_using(() => new Itinerary(the_collection_of_legs));
+        };
+
+        Because of = () => result = sut.was_expecting(a_receive_type_handling_event);
+
+        It should_check_that_the_event_is_a_RECEIVE_type_event = () =>
+        {
+            a_receive_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.RECEIVE));
+            a_receive_type_handling_event.type().ShouldEqual(HandlingEventType.RECEIVE);
+        };
+
+        It should_compare_the_initial_departure_location_with_the_handling_event_location = () =>
+            the_first_leg.load_location()
+                .received(x => x.has_the_same_identity_as(a_receive_type_handling_event.location()));
+
+        It should_confirm_that_the_locations_associated_to_the_handling_event_and_the_initial_departure_are_the_same =
+            () => result.ShouldBeTrue();
+
+        static bool result;
+        static IList<ILeg> the_collection_of_legs;
+        static IHandlingEvent a_receive_type_handling_event;
+        static ILeg the_first_leg;
+        static ILocation the_expected_location;
+    }
+
+    public class when_receiving_an_unexpected_handling_event_of_type_RECEIVE : concern_for_itinerary
+    {
+        Establish context = () =>
+        {
+            a_receive_type_handling_event = an<IHandlingEvent>();
+
+            a_receive_type_handling_event
+                .Stub(x => x.type())
+                .Return(HandlingEventType.RECEIVE);
+
+            the_collection_of_legs = new List<ILeg>();
+            the_first_leg = an<ILeg>();
+            the_collection_of_legs.Add(the_first_leg);
+
+            the_first_leg
+                .Stub(x => x.load_location())
+                .Return(an<ILocation>());
+            the_first_leg.load_location()
+                .Stub(x => x.has_the_same_identity_as(a_receive_type_handling_event.location()))
+                .Return(false);
+
+            create_sut_using(() => new Itinerary(the_collection_of_legs));
+        };
+
+        Because of = () => result = sut.was_expecting(a_receive_type_handling_event);
+
+        It should_check_that_the_event_is_a_RECEIVE_type_event = () =>
+        {
+            a_receive_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.RECEIVE));
+            a_receive_type_handling_event.type().ShouldEqual(HandlingEventType.RECEIVE);
+        };
+
+        It should_compare_the_initial_departure_location_with_the_handling_event_location = () =>
+            the_first_leg.load_location()
+                .received(x => x.has_the_same_identity_as(a_receive_type_handling_event.location()));
+
+        It should_confirm_that_the_locations_associated_to_the_handling_event_and_the_initial_departure_are_different =
+            () => result.ShouldBeFalse();
+
+        static bool result;
+        static IList<ILeg> the_collection_of_legs;
+        static IHandlingEvent a_receive_type_handling_event;
+        static ILeg the_first_leg;
+    }
+
+    public class when_receiving_an_expected_handling_event_of_type_LOAD : concern_for_itinerary
+    {
+        Establish context = () =>
+        {
+            the_expected_location = an<ILocation>();
+            a_not_matching_location = an<ILocation>();
+            the_expected_voyage = an<IVoyage>();
+            a_load_type_handling_event = an<IHandlingEvent>();
+
+            a_load_type_handling_event
+                .Stub(x => x.type())
+                .Return(HandlingEventType.LOAD);
+
+            the_collection_of_legs = new List<ILeg>();
+            the_first_leg = an<ILeg>();
+            the_middle_leg = an<ILeg>();
+            the_last_leg = an<ILeg>();
+
+            the_collection_of_legs.Add(the_first_leg);
+            the_collection_of_legs.Add(the_middle_leg);
+            the_collection_of_legs.Add(the_last_leg);
+
+            the_first_leg
+                .Stub(x => x.load_location())
+                .Return(a_not_matching_location);
+            the_first_leg.load_location()
+                .Stub(x => x.has_the_same_identity_as(a_load_type_handling_event.location()))
+                .Return(false);
+            the_first_leg
+                .Stub(x => x.voyage())
+                .Return(an<IVoyage>());
+            the_middle_leg
+                .Stub(x => x.load_location())
+                .Return(the_expected_location);
+            the_middle_leg.load_location()
+                .Stub(x => x.has_the_same_identity_as(a_load_type_handling_event.location()))
+                .Return(true);
+            the_middle_leg
+                .Stub(x => x.voyage())
+                .Return(the_expected_voyage);
+            the_middle_leg.voyage()
+                .Stub(x => x.has_the_same_identity_as(a_load_type_handling_event.voyage()))
+                .Return(true);
+
+            create_sut_using(() => new Itinerary(the_collection_of_legs));
+        };
+
+        Because of = () => result = sut.was_expecting(a_load_type_handling_event);
+
+        It should_check_that_the_event_is_a_LOAD_type_event = () =>
+        {
+            a_load_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.LOAD));
+            a_load_type_handling_event.type().ShouldEqual(HandlingEventType.LOAD);
+        };
+
+        It should_compare_the_handling_event_location_with_every_leg_load_location_until_it_finds_a_match = () =>
+        {
+            the_first_leg.load_location()
+                .received(x => x.has_the_same_identity_as(a_load_type_handling_event.location()));
+            the_middle_leg.load_location()
+                .received(x => x.has_the_same_identity_as(a_load_type_handling_event.location()));
+        };
+
+        It should_compare_the_handling_event_voyage_with_the_leg_voyage_if_theres_a_previous_location_match = () =>
+        {
+            the_first_leg.voyage()
+                .never_received(x => x.has_the_same_identity_as(a_load_type_handling_event.voyage()));
+            the_middle_leg.voyage()
+                .received(x => x.has_the_same_identity_as(a_load_type_handling_event.voyage()));
+        };
+
+        It should_confirm_that_there_is_one_leg_with_the_same_load_location_and_voyage_as_the_ones_from_the_handling_event = () => 
+            result.ShouldBeTrue();
+
+        static bool result;
+        static IList<ILeg> the_collection_of_legs;
+        static IHandlingEvent a_load_type_handling_event;
+        static ILeg the_last_leg;
+        static ILocation the_expected_location;
+        static ILeg the_first_leg;
+        static ILeg the_middle_leg;
+        static ILocation a_not_matching_location;
+        static IVoyage the_expected_voyage;
+    }
+
+    public class when_receiving_an_unexpected_handling_event_of_type_LOAD : concern_for_itinerary
+    {
+        Establish context = () =>
+        {
+            a_load_type_handling_event = an<IHandlingEvent>();
+            a_load_type_handling_event
+                .Stub(x => x.type())
+                .Return(HandlingEventType.LOAD);
+
+            the_collection_of_legs = new List<ILeg>();
+            for (var i = 0; i < 3; i++)
+                the_collection_of_legs.Add(an<ILeg>());
+
+            the_collection_of_legs.each(leg => leg
+               .Stub(x => x.load_location())
+               .Return(an<ILocation>()));
+            the_collection_of_legs.each(leg =>leg.load_location()
+               .Stub(x => x.has_the_same_identity_as(a_load_type_handling_event.location()))
+               .Return(false));
+            
+            create_sut_using(() => new Itinerary(the_collection_of_legs));
+        };
+
+        Because of = () => result = sut.was_expecting(a_load_type_handling_event);
+
+        It should_check_that_the_event_is_a_LOAD_type_event = () =>
+        {
+            a_load_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.LOAD));
+            a_load_type_handling_event.type().ShouldEqual(HandlingEventType.LOAD);
+        };
+
+        It should_compare_the_handling_event_location_with_every_leg_load_location = () =>
+            the_collection_of_legs
+                .each(leg => leg.load_location()
+                                   .received(x => x.has_the_same_identity_as(a_load_type_handling_event.location())));
+
+        It should_confirm_that_the_event_was_unexpected = () =>
+            result.ShouldBeFalse();
+
+        static bool result;
+        static IList<ILeg> the_collection_of_legs;
+        static IHandlingEvent a_load_type_handling_event;
+    }
+
+    public class when_receiving_an_expected_handling_event_of_type_UNLOAD : concern_for_itinerary
+    {
+        Establish context = () =>
+        {
+            the_expected_location = an<ILocation>();
+            a_not_matching_location = an<ILocation>();
+            the_expected_voyage = an<IVoyage>();
+            an_unload_type_handling_event = an<IHandlingEvent>();
+
+            an_unload_type_handling_event
+                .Stub(x => x.type())
+                .Return(HandlingEventType.UNLOAD);
+
+            the_collection_of_legs = new List<ILeg>();
+            the_first_leg = an<ILeg>();
+            the_middle_leg = an<ILeg>();
+            the_last_leg = an<ILeg>();
+
+            the_collection_of_legs.Add(the_first_leg);
+            the_collection_of_legs.Add(the_middle_leg);
+            the_collection_of_legs.Add(the_last_leg);
+
+            the_first_leg
+                .Stub(x => x.unload_location())
+                .Return(a_not_matching_location);
+            the_first_leg.unload_location()
+                .Stub(x => x.has_the_same_identity_as(an_unload_type_handling_event.location()))
+                .Return(false);
+            the_first_leg
+                .Stub(x => x.voyage())
+                .Return(an<IVoyage>());
+            the_middle_leg
+                .Stub(x => x.unload_location())
+                .Return(the_expected_location);
+            the_middle_leg.unload_location()
+                .Stub(x => x.has_the_same_identity_as(an_unload_type_handling_event.location()))
+                .Return(true);
+            the_middle_leg
+                .Stub(x => x.voyage())
+                .Return(the_expected_voyage);
+            the_middle_leg.voyage()
+                .Stub(x => x.has_the_same_identity_as(an_unload_type_handling_event.voyage()))
+                .Return(true);
+
+            create_sut_using(() => new Itinerary(the_collection_of_legs));
+        };
+
+        Because of = () => result = sut.was_expecting(an_unload_type_handling_event);
+
+        It should_check_that_the_event_is_an_UNLOAD_type_event = () =>
+        {
+            an_unload_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.UNLOAD));
+            an_unload_type_handling_event.type().ShouldEqual(HandlingEventType.UNLOAD);
+        };
+
+        It should_compare_the_handling_event_location_with_every_leg_unload_location_until_it_finds_a_match = () =>
+        {
+            the_first_leg.unload_location()
+                .received(x => x.has_the_same_identity_as(an_unload_type_handling_event.location()));
+            the_middle_leg.unload_location()
+                .received(x => x.has_the_same_identity_as(an_unload_type_handling_event.location()));
+        };
+
+        It should_compare_the_handling_event_voyage_with_the_leg_voyage_if_theres_a_previous_location_match = () =>
+        {
+            the_first_leg.voyage()
+                .never_received(x => x.has_the_same_identity_as(an_unload_type_handling_event.voyage()));
+            the_middle_leg.voyage()
+                .received(x => x.has_the_same_identity_as(an_unload_type_handling_event.voyage()));
+        };
+
+        It should_confirm_that_there_is_one_leg_with_the_same_unload_location_and_voyage_as_the_ones_from_the_handling_event = () =>
+            result.ShouldBeTrue();
+
+        static bool result;
+        static IList<ILeg> the_collection_of_legs;
+        static IHandlingEvent an_unload_type_handling_event;
+        static ILeg the_last_leg;
+        static ILocation the_expected_location;
+        static ILeg the_first_leg;
+        static ILeg the_middle_leg;
+        static ILocation a_not_matching_location;
+        static IVoyage the_expected_voyage;
+    }
+
+    public class when_receiving_an_unexpected_handling_event_of_type_UNLOAD : concern_for_itinerary
+    {
+        Establish context = () =>
+        {
+            an_unload_type_handling_event = an<IHandlingEvent>();
+            an_unload_type_handling_event
+                .Stub(x => x.type())
+                .Return(HandlingEventType.UNLOAD);
+
+            the_collection_of_legs = new List<ILeg>();
+            for (var i = 0; i < 3; i++)
+                the_collection_of_legs.Add(an<ILeg>());
+
+            the_collection_of_legs.each(leg => leg
+               .Stub(x => x.unload_location())
+               .Return(an<ILocation>()));
+            the_collection_of_legs.each(leg => leg.unload_location()
+               .Stub(x => x.has_the_same_identity_as(an_unload_type_handling_event.location()))
+               .Return(false));
+
+            create_sut_using(() => new Itinerary(the_collection_of_legs));
+        };
+
+        Because of = () => result = sut.was_expecting(an_unload_type_handling_event);
+
+        It should_check_that_the_event_is_an_UNLOAD_type_event = () =>
+        {
+            an_unload_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.UNLOAD));
+            an_unload_type_handling_event.type().ShouldEqual(HandlingEventType.UNLOAD);
+        };
+
+        It should_compare_the_handling_event_location_with_every_leg_unload_location = () =>
+            the_collection_of_legs
+                .each(leg => leg.unload_location()
+                                   .received(x => x.has_the_same_identity_as(an_unload_type_handling_event.location())));
+
+        It should_confirm_that_the_event_was_unexpected = () =>
+            result.ShouldBeFalse();
+
+        static bool result;
+        static IList<ILeg> the_collection_of_legs;
+        static IHandlingEvent an_unload_type_handling_event;
+    }
+
+    public class when_receiving_an_expected_handling_event_of_type_CLAIM : concern_for_itinerary
+    {
+        Establish context = () =>
+        {
+            the_expected_location = an<ILocation>();
+            a_claim_type_handling_event = an<IHandlingEvent>();
+
+            a_claim_type_handling_event
+                .Stub(x => x.type())
+                .Return(HandlingEventType.CLAIM);
+
+            the_collection_of_legs = new List<ILeg>();
+            the_first_leg = an<ILeg>();
+            the_last_leg = an<ILeg>();
+            the_collection_of_legs.Add(the_first_leg);
+            the_collection_of_legs.Add(the_last_leg);
+
+            the_last_leg
+                .Stub(x => x.unload_location())
+                .Return(the_expected_location);
+            the_last_leg.unload_location()
+                .Stub(x => x.has_the_same_identity_as(a_claim_type_handling_event.location()))
+                .Return(true);
+
+            create_sut_using(() => new Itinerary(the_collection_of_legs));
+        };
+
+        Because of = () => result = sut.was_expecting(a_claim_type_handling_event);
+
+        It should_check_that_the_event_is_a_CLAIM_type_event = () =>
+        {
+            a_claim_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.CLAIM));
+            a_claim_type_handling_event.type().ShouldEqual(HandlingEventType.CLAIM);
+        };
+
+        It should_compare_the_final_arrival_unload_location_with_the_handling_event_location = () =>
+            the_last_leg.unload_location()
+                        .received(x => x.has_the_same_identity_as(a_claim_type_handling_event.location()));
+
+        It should_confirm_that_the_locations_associated_to_the_handling_event_and_the_final_arrival_are_the_same =
+            () => result.ShouldBeTrue();
+
+        static bool result;
+        static IList<ILeg> the_collection_of_legs;
+        static IHandlingEvent a_claim_type_handling_event;
+        static ILeg the_first_leg;
+        static ILocation the_expected_location;
+        static ILeg the_last_leg;
+    }
+
+    public class when_receiving_an_unexpected_handling_event_of_type_CLAIM : concern_for_itinerary
+    {
+        Establish context = () =>
+        {
+            a_claim_type_handling_event = an<IHandlingEvent>();
+
+            a_claim_type_handling_event
+                .Stub(x => x.type())
+                .Return(HandlingEventType.CLAIM);
+
+            the_collection_of_legs = new List<ILeg>();
+            the_first_leg = an<ILeg>();
+            the_last_leg = an<ILeg>();
+            the_collection_of_legs.Add(the_first_leg);
+            the_collection_of_legs.Add(the_last_leg);
+
+            the_last_leg
+                .Stub(x => x.unload_location())
+                .Return(an<ILocation>());
+            the_last_leg.unload_location()
+                .Stub(x => x.has_the_same_identity_as(a_claim_type_handling_event.location()))
+                .Return(false);
+
+            create_sut_using(() => new Itinerary(the_collection_of_legs));
+        };
+
+        Because of = () => result = sut.was_expecting(a_claim_type_handling_event);
+
+        It should_check_that_the_event_is_a_CLAIM_type_event = () =>
+        {
+            a_claim_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.CLAIM));
+            a_claim_type_handling_event.type().ShouldEqual(HandlingEventType.CLAIM);
+        };
+
+        It should_compare_the_final_arrival_unload_location_with_the_handling_event_location = () =>
+            the_last_leg.unload_location()
+                        .received(x => x.has_the_same_identity_as(a_claim_type_handling_event.location()));
+
+        It should_confirm_that_the_locations_associated_to_the_handling_event_and_the_final_arrival_are_different =
+            () => result.ShouldBeFalse();
+
+        static bool result;
+        static IList<ILeg> the_collection_of_legs;
+        static IHandlingEvent a_claim_type_handling_event;
+        static ILeg the_first_leg;
+        static ILeg the_last_leg;
+    }
+
+    public class when_receiving_an_expected_handling_event_of_type_CUSTOMS : concern_for_itinerary
+    {
+        Establish context = () =>
+        {
+            a_customs_type_handling_event = an<IHandlingEvent>();
+            a_customs_type_handling_event
+                .Stub(x => x.type())
+                .Return(HandlingEventType.CUSTOMS);
+
+            the_collection_of_legs = new List<ILeg>();
+            a_leg = an<ILeg>();
+            the_collection_of_legs.Add(a_leg);
+            
+            create_sut_using(() => new Itinerary(the_collection_of_legs));
+        };
+
+        Because of = () => result = sut.was_expecting(a_customs_type_handling_event);
+
+        It should_check_that_the_event_is_a_CUSTOMS_type_event = () =>
+        {
+            a_customs_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.CUSTOMS));
+            a_customs_type_handling_event.type().ShouldEqual(HandlingEventType.CUSTOMS);
+        };
+
+        It should_confirm_it_was_expected = () => result.ShouldBeTrue();
+
+        static bool result;
+        static IList<ILeg> the_collection_of_legs;
+        static IHandlingEvent a_customs_type_handling_event;
+        static ILeg a_leg;
+    }
+
+    public class when_receiving_an_unexpected_handling_event_of_type_unknown : concern_for_itinerary
+    {
+        Establish context = () =>
+        {
+            a_customs_type_handling_event = an<IHandlingEvent>();
+            a_customs_type_handling_event
+                .Stub(x => x.type())
+                .Return(an<IHandlingEventType>());
+
+            the_collection_of_legs = new List<ILeg>();
+            a_leg = an<ILeg>();
+            the_collection_of_legs.Add(a_leg);
+
+            create_sut_using(() => new Itinerary(the_collection_of_legs));
+        };
+
+        Because of = () => result = sut.was_expecting(a_customs_type_handling_event);
+
+        It should_check_that_the_event_is_an_unknown_type_event = () =>
+        {
+            a_customs_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.RECEIVE));
+            a_customs_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.LOAD));
+            a_customs_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.UNLOAD));
+            a_customs_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.CLAIM));
+            a_customs_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.CUSTOMS));
+            a_customs_type_handling_event.type().ShouldNotEqual(HandlingEventType.RECEIVE);
+            a_customs_type_handling_event.type().ShouldNotEqual(HandlingEventType.LOAD);
+            a_customs_type_handling_event.type().ShouldNotEqual(HandlingEventType.UNLOAD);
+            a_customs_type_handling_event.type().ShouldNotEqual(HandlingEventType.CLAIM);
+            a_customs_type_handling_event.type().ShouldNotEqual(HandlingEventType.CUSTOMS);
+        };
+
+        It should_confirm_it_was_not_expected = () => result.ShouldBeFalse();
+
+        static bool result;
+        static IList<ILeg> the_collection_of_legs;
+        static IHandlingEvent a_customs_type_handling_event;
+        static ILeg a_leg;
     }
 }
