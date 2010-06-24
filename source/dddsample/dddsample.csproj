@@ -47,6 +47,7 @@
     <Compile Include="domain\model\cargo.aggregate\IItinerary.cs" />
     <Compile Include="domain\model\cargo.aggregate\ILeg.cs" />
     <Compile Include="domain\model\cargo.aggregate\Itinerary.cs" />
+    <Compile Include="domain\model\cargo.aggregate\TrackingId.cs" />
     <Compile Include="domain\model\handling.aggregate\HandlingEventType.cs" />
     <Compile Include="domain\model\handling.aggregate\IHandlingEvent.cs" />
     <Compile Include="domain\model\handling.aggregate\IHandlingEventType.cs" />

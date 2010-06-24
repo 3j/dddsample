@@ -44,7 +44,7 @@ namespace dddsample.domain.model.cargo.aggregate
 
         public override string ToString()
         {
-            return underlying_tracking_id.ToString();
+            return underlying_tracking_id.id();
         }
 
         public override bool Equals(object obj)

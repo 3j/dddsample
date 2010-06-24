@@ -143,13 +143,13 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         Establish context = () =>
         {
             tracking_id
-                .Stub(x => x.ToString())
+                .Stub(x => x.id())
                 .Return(string.Empty);
         };
 
         Because of = () => sut.ToString();
 
         It should_leverage_the_tracking_identity_string_representation = () =>
-            tracking_id.received(x => x.ToString());
+            tracking_id.received(x => x.id());
     }
 }
