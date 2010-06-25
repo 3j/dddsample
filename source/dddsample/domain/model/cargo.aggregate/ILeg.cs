@@ -6,9 +6,12 @@ namespace dddsample.domain.model.cargo.aggregate
 {
     public interface ILeg : IValueObject<ILeg>
     {
+        IVoyage voyage();
         ILocation load_location();
         ILocation unload_location();
+        IDate load_time();
         IDate unload_time();
-        IVoyage voyage();
+        int GetHashCode();
+        bool Equals(object the_to_compare_object);
     }
 }
