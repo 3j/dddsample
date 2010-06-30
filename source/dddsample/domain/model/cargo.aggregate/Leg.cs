@@ -70,8 +70,8 @@ namespace dddsample.domain.model.cargo.aggregate
         {
             if (the_to_compare_object == null || this_leg_has_a_different_type_than(the_to_compare_object))
                 return false;
-            
-            return has_the_same_value_as((ILeg)the_to_compare_object);
+
+            return has_the_same_value_as(the_to_compare_object as ILeg);
         }
 
         bool this_leg_has_a_different_type_than(object the_to_compare_object)

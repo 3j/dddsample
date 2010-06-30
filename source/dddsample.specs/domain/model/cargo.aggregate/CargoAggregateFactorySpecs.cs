@@ -1,5 +1,6 @@
 using System;
 using dddsample.domain.model.cargo.aggregate;
+using dddsample.domain.model.handling.aggregate;
 using dddsample.domain.model.location.aggregate;
 using dddsample.domain.model.voyage.aggregate;
 using Machine.Specifications;
@@ -263,5 +264,43 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         static IDate the_injected_load_time;
         static IDate the_injected_unload_time;
         static ILeg result;
+    }
+
+    public abstract class concern_for_handling_activity_factory : Observes<CargoAggregateFactory> { }
+
+    public class when_attempting_to_inject_a_null_location_into_the_handling_activity_factory : concern_for_handling_activity_factory
+    {
+        Establish context = () =>
+        {
+            an_empty_location = null;
+            the_injected_handling_event_type = an<IHandlingEventType>();
+        };
+
+        Because of = () => catch_exception(() => sut.create_handling_activity_using(an_empty_location, the_injected_handling_event_type));
+
+        It should_throw_a_null_argument_exception = () => exception_thrown_by_the_sut.ShouldBeAn<ArgumentNullException>();
+
+        It should_throw_an_invariant_violated_exception_message = () => exception_thrown_by_the_sut.ShouldContainErrorMessage("Invariant Violated: a valid location is required in order to construct a handling activity.");
+
+        static ILocation an_empty_location;
+        static IHandlingEventType the_injected_handling_event_type;
+    }
+
+    public class when_attempting_to_inject_a_null_handling_event_type_into_the_handling_activity_factory : concern_for_handling_activity_factory
+    {
+        Establish context = () =>
+        {
+            the_injected_location = an<ILocation>();
+            an_empty_handling_event_type = null;
+        };
+
+        Because of = () => catch_exception(() => sut.create_handling_activity_using(the_injected_location, an_empty_handling_event_type));
+
+        It should_throw_a_null_argument_exception = () => exception_thrown_by_the_sut.ShouldBeAn<ArgumentNullException>();
+
+        It should_throw_an_invariant_violated_exception_message = () => exception_thrown_by_the_sut.ShouldContainErrorMessage("Invariant Violated: a valid handling event type is required in order to construct a handling activity.");
+
+        static ILocation the_injected_location;
+        static IHandlingEventType an_empty_handling_event_type;
     }
 }

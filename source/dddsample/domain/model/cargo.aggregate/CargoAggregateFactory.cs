@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using dddsample.domain.model.handling.aggregate;
 using dddsample.domain.model.location.aggregate;
 using dddsample.domain.model.voyage.aggregate;
 
 namespace dddsample.domain.model.cargo.aggregate
 {
-    public class CargoAggregateFactory : IRouteSpecificationFactory, ILegFactory
+    public class CargoAggregateFactory : IRouteSpecificationFactory, ILegFactory, IHandlingActivityFactory
     {
         public IRouteSpecification create_route_specification_using(ILocation the_origin_location, ILocation the_destination_location, IDate the_arrival_deadline)
         {
@@ -44,6 +46,17 @@ namespace dddsample.domain.model.cargo.aggregate
                 throw new ArgumentNullException("the_unload_time", "Invariant Violated: a valid unload time is required in order to construct a leg.");
 
             return new Leg(the_voyage, the_load_location, the_unload_location, the_load_time, the_unload_time);
+        }
+
+        public IHandlingActivity create_handling_activity_using(ILocation the_location, IHandlingEventType the_handling_event_type)
+        {
+            if (the_location == null)
+                throw new ArgumentNullException("the_location", "Invariant Violated: a valid location is required in order to construct a handling activity.");
+
+            if (the_handling_event_type == null)
+                throw new ArgumentNullException("the_handling_event_type", "Invariant Violated: a valid handling event type is required in order to construct a handling activity.");
+
+            return new HandlingActivity(the_location, the_handling_event_type);
         }
     }
 }

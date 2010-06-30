@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="domain\model\cargo.aggregate\DateSpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\CargoSpecs.cs" />
+    <Compile Include="domain\model\cargo.aggregate\HandlingActivitySpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\ItinerarySpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\LegSpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\CargoAggregateFactorySpecs.cs" />

@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documentation", "documentat
 		..\documentation\DDD_Sample_04_DDD_Value_Object_Route_Specification.odt = ..\documentation\DDD_Sample_04_DDD_Value_Object_Route_Specification.odt
 		..\documentation\DDD_Sample_05_DDD_Value_Object_Itinerary-Aplicando_BDD_a_codigo_ya_existente.odt = ..\documentation\DDD_Sample_05_DDD_Value_Object_Itinerary-Aplicando_BDD_a_codigo_ya_existente.odt
 		..\documentation\DDD_Sample_06_DDD_Value_Object_RouteStatus.odt = ..\documentation\DDD_Sample_06_DDD_Value_Object_RouteStatus.odt
+		..\documentation\DDD_Sample_07_Refactorizando_DDD_Factory_RouteSpecificationFactory.odt = ..\documentation\DDD_Sample_07_Refactorizando_DDD_Factory_RouteSpecificationFactory.odt
 		..\documentation\DDD_Sample_Primeros_Pasos_con_GIT.odt = ..\documentation\DDD_Sample_Primeros_Pasos_con_GIT.odt
 		..\documentation\DDD_Sample_TODO_LIST.odt = ..\documentation\DDD_Sample_TODO_LIST.odt
 	EndProjectSection

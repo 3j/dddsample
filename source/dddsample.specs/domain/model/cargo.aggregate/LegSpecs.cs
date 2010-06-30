@@ -240,7 +240,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         Because of = () => result = sut.Equals(the_other_leg);
 
-        It should_leverage_the_value_object_comparer = () =>
+        It should_leverage_the_leg_value_object_comparer = () =>
         {
             the_injected_voyage.received(x => x.has_the_same_identity_as(the_injected_voyage));
             the_injected_load_location.received(x => x.has_the_same_identity_as(the_injected_load_location));
@@ -277,7 +277,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         Because of = () => result = sut.Equals(the_other_leg);
 
-        It should_leverage_the_value_object_comparer = () =>
+        It should_leverage_the_leg_value_object_comparer = () =>
         {
             the_injected_voyage.received(x => x.has_the_same_identity_as(the_injected_voyage));
             the_injected_load_location.received(x => x.has_the_same_identity_as(the_injected_load_location));
