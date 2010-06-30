@@ -46,6 +46,8 @@
     <Compile Include="domain\model\cargo.aggregate\ICargo.cs" />
     <Compile Include="domain\model\cargo.aggregate\IItinerary.cs" />
     <Compile Include="domain\model\cargo.aggregate\ILeg.cs" />
+    <Compile Include="domain\model\cargo.aggregate\ILegFactory.cs" />
+    <Compile Include="domain\model\cargo.aggregate\IRouteSpecificationFactory.cs" />
     <Compile Include="domain\model\cargo.aggregate\IRouteStatus.cs" />
     <Compile Include="domain\model\cargo.aggregate\Itinerary.cs" />
     <Compile Include="domain\model\cargo.aggregate\Leg.cs" />
@@ -58,7 +60,7 @@
     <Compile Include="domain\model\cargo.aggregate\IRouteSpecification.cs" />
     <Compile Include="domain\model\cargo.aggregate\ITrackingId.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteSpecification.cs" />
-    <Compile Include="domain\model\cargo.aggregate\RouteSpecificationFactory.cs" />
+    <Compile Include="domain\model\cargo.aggregate\CargoAggregateFactory.cs" />
     <Compile Include="domain\model\voyage.aggregate\IVoyage.cs" />
     <Compile Include="scratchpad\TransportStatus.cs" />
     <Compile Include="domain\shared\AndSpecification.cs" />

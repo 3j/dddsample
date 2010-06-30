@@ -13,7 +13,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             the_origin_location = an<ILocation>();
             the_destination_location = an<ILocation>();
             the_arrival_deadline = an<IDate>();
-            the_route_specification_factory = new RouteSpecificationFactory();
+            the_route_specification_factory = new CargoAggregateFactory();
 
             create_sut_using(() =>
                 the_route_specification_factory
@@ -23,7 +23,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         protected static ILocation the_origin_location;
         protected static ILocation the_destination_location;
         protected static IDate the_arrival_deadline;
-        protected static RouteSpecificationFactory the_route_specification_factory;
+        protected static CargoAggregateFactory the_route_specification_factory;
     }
 
     public class when_asked_for_its_origin_location : concern_for_route_specification

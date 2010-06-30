@@ -56,7 +56,7 @@
     <Compile Include="domain\model\cargo.aggregate\CargoSpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\ItinerarySpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\LegSpecs.cs" />
-    <Compile Include="domain\model\cargo.aggregate\RouteSpecificationFactorySpecs.cs" />
+    <Compile Include="domain\model\cargo.aggregate\CargoAggregateFactorySpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteSpecificationSpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteStatusSpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\TrackingIdSpecs.cs" />

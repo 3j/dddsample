@@ -16,10 +16,11 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             the_injected_unload_location = an<ILocation>();
             the_injected_load_time = an<IDate>();
             the_injected_unload_time = an<IDate>();
+            the_leg_factory = new CargoAggregateFactory();
 
-            create_sut_using(() =>
-                new Leg(the_injected_voyage, the_injected_load_location, the_injected_unload_location,
-                        the_injected_load_time, the_injected_unload_time));
+            create_sut_using(() => the_leg_factory.create_leg_using(
+                         the_injected_voyage, the_injected_load_location, the_injected_unload_location,
+                         the_injected_load_time, the_injected_unload_time));
         };
 
         protected static IVoyage the_injected_voyage;
@@ -27,6 +28,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         protected static ILocation the_injected_unload_location;
         protected static IDate the_injected_load_time;
         protected static IDate the_injected_unload_time;
+        protected static CargoAggregateFactory the_leg_factory;
     }
 
     public class when_returning_the_voyage : concern_for_leg
@@ -78,8 +80,8 @@ namespace dddsample.specs.domain.model.cargo.aggregate
     {
         Establish context = () =>
         {
-            the_other_leg = new Leg(the_injected_voyage, the_injected_load_location, the_injected_unload_location,
-                                    the_injected_load_time, the_injected_unload_time);
+            the_other_leg = the_leg_factory.create_leg_using(the_injected_voyage, the_injected_load_location, the_injected_unload_location,
+                                                             the_injected_load_time, the_injected_unload_time);
             
             the_injected_voyage
                 .Stub(x => x.has_the_same_identity_as(the_injected_voyage))
@@ -126,8 +128,9 @@ namespace dddsample.specs.domain.model.cargo.aggregate
     {
         Establish context = () =>
         {
-            the_other_leg = new Leg(the_injected_voyage, the_injected_load_location, the_new_unload_location,
-                                    the_injected_load_time, the_injected_unload_time);
+            the_new_unload_location = an<ILocation>();
+            the_other_leg = the_leg_factory.create_leg_using(the_injected_voyage, the_injected_load_location, the_new_unload_location,
+                                                             the_injected_load_time, the_injected_unload_time);
 
             the_injected_voyage
                 .Stub(x => x.has_the_same_identity_as(the_injected_voyage))
@@ -215,9 +218,9 @@ namespace dddsample.specs.domain.model.cargo.aggregate
     {
         Establish context = () =>
         {
-            the_other_leg = new Leg(the_injected_voyage, the_injected_load_location, the_injected_unload_location,
-                                    the_injected_load_time, the_injected_unload_time);
-            
+            the_other_leg = the_leg_factory.create_leg_using(the_injected_voyage, the_injected_load_location, the_injected_unload_location,
+                                                             the_injected_load_time, the_injected_unload_time);
+
             the_injected_voyage
                 .Stub(x => x.has_the_same_identity_as(the_injected_voyage))
                 .Return(true);
@@ -236,7 +239,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         };
 
         Because of = () => result = sut.Equals(the_other_leg);
-        
+
         It should_leverage_the_value_object_comparer = () =>
         {
             the_injected_voyage.received(x => x.has_the_same_identity_as(the_injected_voyage));
@@ -256,8 +259,8 @@ namespace dddsample.specs.domain.model.cargo.aggregate
     {
         Establish context = () =>
         {
-            the_other_leg = new Leg(the_injected_voyage, the_injected_load_location, the_injected_unload_location,
-                                    the_injected_load_time, the_injected_unload_time);
+            the_other_leg = the_leg_factory.create_leg_using(the_injected_voyage, the_injected_load_location, the_injected_unload_location,
+                                                             the_injected_load_time, the_injected_unload_time);
             the_injected_voyage
                 .Stub(x => x.has_the_same_identity_as(the_injected_voyage))
                 .Return(true);
