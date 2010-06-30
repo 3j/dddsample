@@ -1,7 +1,4 @@
-using System;
 using dddsample.domain.model.cargo.aggregate;
-using dddsample.domain.model.location.aggregate;
-using dddsample.domain.model.voyage.aggregate;
 using Machine.Specifications;
 
 namespace dddsample.specs.domain.model.cargo.aggregate

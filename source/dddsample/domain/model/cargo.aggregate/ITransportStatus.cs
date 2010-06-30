@@ -2,7 +2,7 @@
 
 namespace dddsample.domain.model.cargo.aggregate
 {
-    public interface IRouteStatus : IValueObject<IRouteStatus>, IEnumeration
+    public interface ITransportStatus : IValueObject<ITransportStatus>, IEnumeration
     {
     }
 }
