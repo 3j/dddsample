@@ -4,7 +4,8 @@ namespace dddsample.domain.model.cargo.aggregate
 {
     public interface ITrackingId : IValueObject<ITrackingId>
     {
-        int GetHashCode();
         string id();
+        int GetHashCode();
+        bool Equals(object obj);
     }
 }

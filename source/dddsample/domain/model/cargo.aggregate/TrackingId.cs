@@ -30,5 +30,18 @@ namespace dddsample.domain.model.cargo.aggregate
         {
             return underlying_id.GetHashCode();
         }
+
+        public override bool Equals(object the_to_compare_object)
+        {
+            if (the_to_compare_object == null || this_tracking_id_has_a_different_type_than(the_to_compare_object))
+                return false;
+
+            return this.has_the_same_value_as(the_to_compare_object as ITrackingId);
+        }
+
+        bool this_tracking_id_has_a_different_type_than(object the_to_compare_object)
+        {
+            return this.GetType() != the_to_compare_object.GetType();
+        }
     }
 }
