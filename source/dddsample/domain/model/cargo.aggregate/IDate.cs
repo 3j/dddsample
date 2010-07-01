@@ -7,6 +7,7 @@ namespace dddsample.domain.model.cargo.aggregate
     {
         bool is_posterior_to(IDate the_other_date);
         int GetHashCode();
+        bool Equals(object the_to_compare_object);
         DateTime datetime_value();
     }
 }

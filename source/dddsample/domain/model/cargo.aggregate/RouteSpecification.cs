@@ -57,5 +57,10 @@ namespace dddsample.domain.model.cargo.aggregate
             result = result * 397 + this.underlying_arrival_deadline.GetHashCode();
             return result;
         }
+
+        public override bool Equals(object the_to_compare_object)
+        {
+            return this.has_the_same_value_as(the_to_compare_object as IRouteSpecification);
+        }
     }
 }

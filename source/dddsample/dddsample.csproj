@@ -53,6 +53,7 @@
     <Compile Include="domain\model\cargo.aggregate\IRouteSpecificationFactory.cs" />
     <Compile Include="domain\model\cargo.aggregate\IRouteStatus.cs" />
     <Compile Include="domain\model\cargo.aggregate\Itinerary.cs" />
+    <Compile Include="domain\model\cargo.aggregate\ITrackingIdFactory.cs" />
     <Compile Include="domain\model\cargo.aggregate\ITransportStatus.cs" />
     <Compile Include="domain\model\cargo.aggregate\Leg.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteStatus.cs" />

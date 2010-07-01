@@ -23,7 +23,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         protected static ILocation the_origin_location;
         protected static ILocation the_destination_location;
         protected static IDate the_arrival_deadline;
-        protected static CargoAggregateFactory the_route_specification_factory;
+        protected static IRouteSpecificationFactory the_route_specification_factory;
     }
 
     public class when_asked_for_its_origin_location : concern_for_route_specification
@@ -521,5 +521,116 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             () => the_arrival_deadline.received(x => x.GetHashCode());
 
         static int result;
+    }
+
+    public class when_comparing_two_route_specifications_with_the_same_attributes_using_equals : concern_for_route_specification
+    {
+        Establish context = () =>
+        {
+            the_other_route_specification = the_route_specification_factory
+                                               .create_route_specification_using(the_origin_location,
+                                                                                 the_destination_location,
+                                                                                 the_arrival_deadline);
+
+            the_origin_location
+                .Stub(x => x.has_the_same_identity_as(the_origin_location))
+                .Return(true);
+            the_destination_location
+                .Stub(x => x.has_the_same_identity_as(the_destination_location))
+                .Return(true);
+            the_arrival_deadline
+                .Stub(x => x.has_the_same_value_as(the_arrival_deadline))
+                .Return(true);
+        };
+
+        Because of = () => result = sut.Equals(the_other_route_specification);
+
+        It should_leverage_the_route_specification_value_object_comparer = () =>
+        {
+            the_origin_location.received(x => x.has_the_same_identity_as(the_origin_location));
+            the_destination_location.received(x => x.has_the_same_identity_as(the_destination_location));
+            the_arrival_deadline.received(x => x.has_the_same_value_as(the_arrival_deadline));
+        };
+
+        It should_confirm_they_are_equal = () => result.ShouldBeTrue();
+
+        static bool result;
+        static IRouteSpecification the_other_route_specification;
+    }
+
+    public class when_comparing_two_route_specifications_with_different_attributes_using_equals : concern_for_route_specification
+    {
+        Establish context = () =>
+        {
+            the_other_route_specification = the_route_specification_factory
+                                               .create_route_specification_using(the_origin_location,
+                                                                                 the_destination_location,
+                                                                                 the_arrival_deadline);
+
+            the_origin_location
+                .Stub(x => x.has_the_same_identity_as(the_origin_location))
+                .Return(true);
+            the_destination_location
+                .Stub(x => x.has_the_same_identity_as(the_destination_location))
+                .Return(false);
+        };
+
+        Because of = () => result = sut.Equals(the_other_route_specification);
+
+        It should_leverage_the_route_specification_value_object_comparer = () =>
+        {
+            the_origin_location.received(x => x.has_the_same_identity_as(the_origin_location));
+            the_destination_location.received(x => x.has_the_same_identity_as(the_destination_location));
+            the_arrival_deadline.never_received(x => x.has_the_same_value_as(the_arrival_deadline));
+        };
+
+        It should_confirm_they_are_different = () => result.ShouldBeFalse();
+
+        static bool result;
+        static IRouteSpecification the_other_route_specification;
+    }
+
+    public class when_comparing_any_route_specifications_with_a_null_route_specification_using_equals : concern_for_route_specification
+    {
+        Establish context = () =>
+        {
+            the_other_route_specification = null;
+        };
+
+        Because of = () => result = sut.Equals(the_other_route_specification);
+
+        It should_leverage_the_route_specification_value_object_comparer = () =>
+        {
+            the_origin_location.never_received(x => x.has_the_same_identity_as(the_origin_location));
+            the_destination_location.never_received(x => x.has_the_same_identity_as(the_destination_location));
+            the_arrival_deadline.never_received(x => x.has_the_same_value_as(the_arrival_deadline));
+        };
+
+        It should_confirm_they_are_different = () => result.ShouldBeFalse();
+
+        static bool result;
+        static IRouteSpecification the_other_route_specification;
+    }
+
+    public class when_comparing_any_route_specifications_with_a_different_type_object_using_equals : concern_for_route_specification
+    {
+        Establish context = () =>
+        {
+            not_a_route_specification = an<ILeg>();
+        };
+
+        Because of = () => result = sut.Equals(not_a_route_specification);
+
+        It should_leverage_the_route_specification_value_object_comparer = () =>
+        {
+            the_origin_location.never_received(x => x.has_the_same_identity_as(the_origin_location));
+            the_destination_location.never_received(x => x.has_the_same_identity_as(the_destination_location));
+            the_arrival_deadline.never_received(x => x.has_the_same_value_as(the_arrival_deadline));
+        };
+
+        It should_confirm_they_are_different = () => result.ShouldBeFalse();
+
+        static bool result;
+        static ILeg not_a_route_specification;
     }
 }

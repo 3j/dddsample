@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using dddsample.domain.model.handling.aggregate;
 using dddsample.domain.model.location.aggregate;
 using dddsample.domain.model.voyage.aggregate;
 
 namespace dddsample.domain.model.cargo.aggregate
 {
-    public class CargoAggregateFactory : IRouteSpecificationFactory, ILegFactory, IHandlingActivityFactory
+    public class CargoAggregateFactory : IRouteSpecificationFactory, ILegFactory, IHandlingActivityFactory, ITrackingIdFactory
     {
         public IRouteSpecification create_route_specification_using(ILocation the_origin_location, ILocation the_destination_location, IDate the_arrival_deadline)
         {
@@ -57,6 +56,14 @@ namespace dddsample.domain.model.cargo.aggregate
                 throw new ArgumentNullException("the_handling_event_type", "Invariant Violated: a valid handling event type is required in order to construct a handling activity.");
 
             return new HandlingActivity(the_location, the_handling_event_type);
+        }
+
+        public ITrackingId create_tracking_id_using(string the_id)
+        {
+            if (the_id == null)
+                throw new ArgumentNullException("the_id", "Invariant Violated: a valid id is required in order to contruct a tracking id.");
+
+            return new TrackingId(the_id);
         }
     }
 }

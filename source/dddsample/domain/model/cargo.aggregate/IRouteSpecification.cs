@@ -1,5 +1,4 @@
-﻿using System;
-using dddsample.domain.model.location.aggregate;
+﻿using dddsample.domain.model.location.aggregate;
 using dddsample.domain.shared;
 
 namespace dddsample.domain.model.cargo.aggregate
@@ -10,5 +9,6 @@ namespace dddsample.domain.model.cargo.aggregate
         ILocation destination();
         IDate arrival_dealine();
         int GetHashCode();
+        bool Equals(object the_to_compare_object);
     }
 }

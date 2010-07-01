@@ -303,4 +303,54 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         static ILocation the_injected_location;
         static IHandlingEventType an_empty_handling_event_type;
     }
+
+    public class when_creating_a_handling_activity_through_the_factory : concern_for_handling_activity_factory
+    {
+        Establish context = () =>
+        {
+            the_injected_location = an<ILocation>();
+            the_injected_handling_event_type = an<IHandlingEventType>();
+        };
+
+        Because of = () => result = sut.create_handling_activity_using(the_injected_location, the_injected_handling_event_type);
+
+        It should_return_an_object_that_conforms_the_handling_activity_interface = () => result.ShouldBeAn<IHandlingActivity>();
+
+        static IHandlingActivity result;
+        static ILocation the_injected_location;
+        static IHandlingEventType the_injected_handling_event_type;
+    }
+
+    public abstract class concern_for_tracking_id_factory : Observes<CargoAggregateFactory> { }
+
+    public class when_attempting_to_inject_a_null_id_into_the_tracking_id_factory : concern_for_tracking_id_factory
+    {
+        Establish context = () =>
+        {
+            an_empty_id = null;
+        };
+
+        Because of = () => catch_exception(() => sut.create_tracking_id_using(an_empty_id));
+
+        It should_should_throw_a_null_argument_exception = () => exception_thrown_by_the_sut.ShouldBeAn<ArgumentNullException>();
+
+        It should_throw_an_invariant_violated_exception_message = () => exception_thrown_by_the_sut.ShouldContainErrorMessage("Invariant Violated: a valid id is required in order to contruct a tracking id.");
+
+        static string an_empty_id;
+    }
+
+    public class when_creating_a_tracking_id_through_the_factory : concern_for_tracking_id_factory
+    {
+        Establish context = () =>
+        {
+            the_injected_id = "1234";
+        };
+
+        Because of = () => result = sut.create_tracking_id_using(the_injected_id);
+
+        It should_return_an_object_that_conforms_the_tracking_id_interface = () => result.ShouldBeAn<ITrackingId>();
+
+        static ITrackingId result;
+        static string the_injected_id;
+    }
 }

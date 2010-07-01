@@ -58,38 +58,52 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         static IDate the_current_date;
     }
 
-    public class when_asked_if_the_same_date_has_the_same_value : concern_for_date
+    public class when_comparing_two_dates_with_the_same_attribute : concern_for_date
     {
         Establish context = () =>
         {
-            the_same_date = new Date(DateTime.MaxValue);
-
+            the_other_date = new Date(DateTime.MaxValue);
             create_sut_using(() => new Date(DateTime.MaxValue));
         };
 
-        Because of = () => result = sut.has_the_same_value_as(the_same_date);
+        Because of = () => result = sut.has_the_same_value_as(the_other_date);
 
-        It should_confirm_that_both_have_the_same_value = () => result.ShouldBeTrue();
+        It should_confirm_they_have_the_same_value = () => result.ShouldBeTrue();
 
         static bool result;
-        static IDate the_same_date;
+        static IDate the_other_date;
     }
 
-    public class when_asked_if_a_different_date_has_the_same_value : concern_for_date
+    public class when_comparing_two_dates_with_different_attribute : concern_for_date
     {
         Establish context = () =>
         {
-            a_different_date = new Date(DateTime.Now);
-
+            the_other_date = new Date(DateTime.Now);
             create_sut_using(() => new Date(DateTime.MaxValue));
         };
 
-        Because of = () => result = sut.has_the_same_value_as(a_different_date);
+        Because of = () => result = sut.has_the_same_value_as(the_other_date);
 
-        It should_prove_as_otherwise = () => result.ShouldBeFalse();
+        It should_confirm_they_have_not_the_same_value = () => result.ShouldBeFalse();
 
         static bool result;
-        static IDate a_different_date;
+        static IDate the_other_date;
+    }
+
+    public class when_comparing_any_date_with_a_null_date : concern_for_date
+    {
+        Establish context = () =>
+        {
+            the_other_date = null;
+            create_sut_using(() => new Date(DateTime.MaxValue));
+        };
+
+        Because of = () => result = sut.has_the_same_value_as(the_other_date);
+
+        It should_confirm_they_have_not_the_same_value = () => result.ShouldBeFalse();
+
+        static bool result;
+        static IDate the_other_date;
     }
 
     public class when_returning_the_datetime : concern_for_date
@@ -125,5 +139,83 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         static int result;
         static DateTime the_datetime;
+    }
+
+    public class when_comparing_two_dates_with_the_same_attribute_using_equals : concern_for_date
+    {
+        Establish context = () =>
+        {
+            the_datetime = DateTime.Now;
+
+            create_sut_using(() => new Date(the_datetime));
+            the_other_date = new Date(the_datetime);
+        };
+
+        Because of = () => result = sut.Equals(the_other_date);
+
+        It should_confirm_they_are_equal = () => result.ShouldBeTrue();
+
+        static bool result;
+        static DateTime the_datetime;
+        static IDate the_other_date;
+    }
+
+    public class when_comparing_two_dates_with_different_attribute_using_equals : concern_for_date
+    {
+        Establish context = () =>
+        {
+            the_datetime = DateTime.Now;
+            create_sut_using(() => new Date(the_datetime));
+
+            the_other_datetime = DateTime.MaxValue;
+            the_other_date = new Date(the_other_datetime);
+        };
+
+        Because of = () => result = sut.Equals(the_other_date);
+
+        It should_confirm_they_are_different = () => result.ShouldBeFalse();
+
+        static bool result;
+        static DateTime the_datetime;
+        static IDate the_other_date;
+        static DateTime the_other_datetime;
+    }
+
+    public class when_comparing_any_date_with_null_date_using_equals : concern_for_date
+    {
+        Establish context = () =>
+        {
+            the_datetime = DateTime.Now;
+            create_sut_using(() => new Date(the_datetime));
+
+            the_other_date = null;
+        };
+
+        Because of = () => result = sut.Equals(the_other_date);
+
+        It should_confirm_they_are_different = () => result.ShouldBeFalse();
+
+        static bool result;
+        static DateTime the_datetime;
+        static IDate the_other_date;
+    }
+
+    public class when_comparing_any_date_with_a_different_type_object_using_equals : concern_for_date
+    {
+        Establish context = () =>
+        {
+            the_datetime = DateTime.Now;
+            create_sut_using(() => new Date(the_datetime));
+
+            not_a_date = null;
+        };
+
+        Because of = () => result = sut.Equals(not_a_date);
+
+        It should_confirm_they_are_different = () => result.ShouldBeFalse();
+
+        static bool result;
+        static DateTime the_datetime;
+        static IItinerary not_a_date;
     }
 }

@@ -12,12 +12,16 @@ namespace dddsample.specs.domain.model.cargo.aggregate
     {
         Establish context = () =>
         {
+            the_handling_activity_factory = new CargoAggregateFactory();
             the_injected_handling_event_type = the_dependency<IHandlingEventType>();
             the_injected_location = the_dependency<ILocation>();
+            create_sut_using(() => 
+                the_handling_activity_factory.create_handling_activity_using(the_injected_location, the_injected_handling_event_type));
         };
 
         protected static IHandlingEventType the_injected_handling_event_type;
         protected static ILocation the_injected_location;
+        protected static IHandlingActivityFactory the_handling_activity_factory;
     }
 
     public class when_returning_the_location : concern_for_handling_activity
@@ -161,7 +165,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
     {
         Establish context = () =>
         {
-            the_other_handling_activity = new HandlingActivity(the_injected_location, the_injected_handling_event_type);
+            the_other_handling_activity = the_handling_activity_factory.create_handling_activity_using(the_injected_location, the_injected_handling_event_type);
 
             the_injected_location
                 .Stub(x => x.has_the_same_identity_as(the_injected_location))
@@ -189,7 +193,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
     {
         Establish context = () =>
         {
-            the_other_handling_activity = new HandlingActivity(the_injected_location, the_injected_handling_event_type);
+            the_other_handling_activity = the_handling_activity_factory.create_handling_activity_using(the_injected_location, the_injected_handling_event_type);
 
             the_injected_location
                 .Stub(x => x.has_the_same_identity_as(the_injected_location))
@@ -222,6 +226,12 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         Because of = () => result = sut.Equals(the_other_handling_activity);
 
+        It should_leverage_the_handling_activity_value_object_comparer = () =>
+        {
+            the_injected_location.never_received(x => x.has_the_same_identity_as(the_injected_location));
+            the_injected_handling_event_type.never_received(x => x.has_the_same_value_as(the_injected_handling_event_type));
+        };
+
         It should_confirm_they_are_different = () => result.ShouldBeFalse();
 
         static bool result;
@@ -236,6 +246,12 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         };
 
         Because of = () => result = sut.Equals(not_a_handling_activity);
+
+        It should_leverage_the_handling_activity_value_object_comparer = () =>
+        {
+            the_injected_location.never_received(x => x.has_the_same_identity_as(the_injected_location));
+            the_injected_handling_event_type.never_received(x => x.has_the_same_value_as(the_injected_handling_event_type));
+        };
 
         It should_confirm_they_are_different = () => result.ShouldBeFalse();
 

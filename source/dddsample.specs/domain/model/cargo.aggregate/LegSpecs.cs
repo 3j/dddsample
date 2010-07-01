@@ -28,7 +28,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         protected static ILocation the_injected_unload_location;
         protected static IDate the_injected_load_time;
         protected static IDate the_injected_unload_time;
-        protected static CargoAggregateFactory the_leg_factory;
+        protected static ILegFactory the_leg_factory;
     }
 
     public class when_returning_the_voyage : concern_for_leg
@@ -283,6 +283,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             the_injected_load_location.received(x => x.has_the_same_identity_as(the_injected_load_location));
             the_injected_unload_location.received(x => x.has_the_same_identity_as(the_injected_unload_location));
             the_injected_load_time.received(x => x.has_the_same_value_as(the_injected_load_time));
+            the_injected_unload_time.never_received(x => x.has_the_same_value_as(the_injected_unload_time));
         };
 
         It should_confirm_they_are_different = () => result.ShouldBeFalse();
@@ -300,6 +301,15 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         Because of = () => result = sut.Equals(the_other_leg);
 
+        It should_leverage_the_leg_value_object_comparer = () =>
+        {
+            the_injected_voyage.never_received(x => x.has_the_same_identity_as(the_injected_voyage));
+            the_injected_load_location.never_received(x => x.has_the_same_identity_as(the_injected_load_location));
+            the_injected_unload_location.never_received(x => x.has_the_same_identity_as(the_injected_unload_location));
+            the_injected_load_time.never_received(x => x.has_the_same_value_as(the_injected_load_time));
+            the_injected_unload_time.never_received(x => x.has_the_same_value_as(the_injected_unload_time));
+        };
+
         It should_confirm_they_are_different = () => result.ShouldBeFalse();
 
         static bool result;
@@ -314,6 +324,15 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         };
 
         Because of = () => result = sut.Equals(not_a_leg);
+
+        It should_leverage_the_leg_value_object_comparer = () =>
+        {
+            the_injected_voyage.never_received(x => x.has_the_same_identity_as(the_injected_voyage));
+            the_injected_load_location.never_received(x => x.has_the_same_identity_as(the_injected_load_location));
+            the_injected_unload_location.never_received(x => x.has_the_same_identity_as(the_injected_unload_location));
+            the_injected_load_time.never_received(x => x.has_the_same_value_as(the_injected_load_time));
+            the_injected_unload_time.never_received(x => x.has_the_same_value_as(the_injected_unload_time));
+        };
 
         It should_confirm_they_are_different = () => result.ShouldBeFalse();
 
