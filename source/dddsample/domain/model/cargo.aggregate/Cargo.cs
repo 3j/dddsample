@@ -49,9 +49,9 @@ namespace dddsample.domain.model.cargo.aggregate
             return underlying_tracking_id.id();
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object the_to_compare_object)
         {
-            throw new NotImplementedException();
+            return this.has_the_same_identity_as(the_to_compare_object as ICargo);
         }
     }
 }

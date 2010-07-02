@@ -1,7 +1,5 @@
-using System;
 using dddsample.domain.model.cargo.aggregate;
 using dddsample.domain.model.cargo.aggregate.interfaces;
-using dddsample.domain.model.location.aggregate;
 using dddsample.domain.model.location.aggregate.interfaces;
 using Machine.Specifications;
 using Machine.Specifications.DevelopWithPassion.Rhino;
@@ -153,5 +151,87 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         It should_leverage_the_tracking_identity_string_representation = () =>
             tracking_id.received(x => x.id());
+    }
+
+    public class when_comparing_two_cargoes_with_the_same_identity_using_equals : concern_for_cargo
+    {
+        Establish context = () =>
+        {
+            the_other_cargo = an<ICargo>();
+            the_other_cargo
+                .Stub(x => x.tracking_id())
+                .Return(tracking_id);
+
+            tracking_id
+                .Stub(x => x.has_the_same_value_as(tracking_id))
+                .Return(true);
+        };
+
+        Because of = () => result = sut.Equals(the_other_cargo);
+
+        It should_leverage_the_cargo_entity_comparer = () => tracking_id.received(x => x.has_the_same_value_as(tracking_id));
+        
+        It should_confirm_they_are_equal = () => result.ShouldBeTrue();
+
+        static bool result;
+        static ICargo the_other_cargo;
+    }
+
+    public class when_comparing_two_cargoes_with_different_identity_using_equals : concern_for_cargo
+    {
+        Establish context = () =>
+        {
+            the_other_cargo = an<ICargo>();
+            the_other_cargo
+                .Stub(x => x.tracking_id())
+                .Return(tracking_id);
+
+            tracking_id
+                .Stub(x => x.has_the_same_value_as(tracking_id))
+                .Return(false);
+        };
+
+        Because of = () => result = sut.Equals(the_other_cargo);
+
+        It should_leverage_the_cargo_entity_comparer = () => tracking_id.received(x => x.has_the_same_value_as(tracking_id));
+
+        It should_confirm_they_are_different = () => result.ShouldBeFalse();
+
+        static bool result;
+        static ICargo the_other_cargo;
+    }
+
+    public class when_comparing_any_cargo_with_a_null_cargo_using_equals : concern_for_cargo
+    {
+        Establish context = () =>
+        {
+            the_other_cargo = null;
+        };
+
+        Because of = () => result = sut.Equals(the_other_cargo);
+
+        It should_leverage_the_cargo_entity_comparer = () => tracking_id.never_received(x => x.has_the_same_value_as(tracking_id));
+
+        It should_confirm_they_are_different = () => result.ShouldBeFalse();
+
+        static bool result;
+        static ICargo the_other_cargo;
+    }
+
+    public class when_comparing_any_cargo_with_a_diferent_type_object_using_equals : concern_for_cargo
+    {
+        Establish context = () =>
+        {
+            not_a_cargo = an<ILeg>();
+        };
+
+        Because of = () => result = sut.Equals(not_a_cargo);
+
+        It should_leverage_the_cargo_entity_comparer = () => tracking_id.never_received(x => x.has_the_same_value_as(tracking_id));
+
+        It should_confirm_they_are_different = () => result.ShouldBeFalse();
+
+        static bool result;
+        static ILeg not_a_cargo;
     }
 }
