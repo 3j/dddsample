@@ -62,6 +62,7 @@
     <Compile Include="domain\model\cargo.aggregate\RouteStatusSpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\TrackingIdSpecs.cs" />
     <Compile Include="domain\model\cargo.aggregate\TransportStatusSpecs.cs" />
+    <Compile Include="domain\model\handling.aggregate\HandlingEventTypeSpecs.cs" />
     <Compile Include="domain\shared\AndSpecificationSpecs.cs" />
     <Compile Include="domain\shared\IWhateverType.cs" />
     <Compile Include="domain\shared\NotSpecificationSpec.cs" />

@@ -62,7 +62,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
     {
         Because of = () => result = TransportStatus.ONBOARD_CARRIER.has_the_same_value_as(TransportStatus.IN_PORT);
 
-        It should_confirm_they_have_differennt_value = () => result.ShouldBeFalse();
+        It should_confirm_they_have_different_value = () => result.ShouldBeFalse();
 
         static bool result;
     }
