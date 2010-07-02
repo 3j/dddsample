@@ -1,7 +1,7 @@
 using System;
 using dddsample.domain.shared;
 
-namespace dddsample.domain.model.cargo.aggregate
+namespace dddsample.domain.model.cargo.aggregate.interfaces
 {
     public interface IDate : IValueObject<IDate>
     {

@@ -1,8 +1,10 @@
 ﻿using dddsample.domain.model.location.aggregate;
+using dddsample.domain.model.location.aggregate.interfaces;
 using dddsample.domain.model.voyage.aggregate;
+using dddsample.domain.model.voyage.aggregate.interfaces;
 using dddsample.domain.shared;
 
-namespace dddsample.domain.model.cargo.aggregate
+namespace dddsample.domain.model.cargo.aggregate.interfaces
 {
     public interface ILeg : IValueObject<ILeg>
     {

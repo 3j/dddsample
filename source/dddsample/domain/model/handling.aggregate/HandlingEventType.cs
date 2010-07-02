@@ -1,4 +1,5 @@
 ﻿using System;
+using dddsample.domain.model.handling.aggregate.interfaces;
 
 namespace dddsample.domain.model.handling.aggregate
 {

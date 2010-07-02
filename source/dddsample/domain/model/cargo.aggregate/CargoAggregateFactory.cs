@@ -1,7 +1,11 @@
 ﻿using System;
+using dddsample.domain.model.cargo.aggregate.interfaces;
 using dddsample.domain.model.handling.aggregate;
+using dddsample.domain.model.handling.aggregate.interfaces;
 using dddsample.domain.model.location.aggregate;
+using dddsample.domain.model.location.aggregate.interfaces;
 using dddsample.domain.model.voyage.aggregate;
+using dddsample.domain.model.voyage.aggregate.interfaces;
 
 namespace dddsample.domain.model.cargo.aggregate
 {

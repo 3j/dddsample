@@ -1,4 +1,4 @@
-﻿namespace dddsample.domain.model.cargo.aggregate
+﻿namespace dddsample.domain.model.cargo.aggregate.interfaces
 {
     public interface ITrackingIdFactory
     {

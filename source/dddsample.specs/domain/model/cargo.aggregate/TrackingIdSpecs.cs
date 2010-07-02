@@ -1,5 +1,6 @@
 using System;
 using dddsample.domain.model.cargo.aggregate;
+using dddsample.domain.model.cargo.aggregate.interfaces;
 using Machine.Specifications;
 using Machine.Specifications.DevelopWithPassion.Rhino;
 

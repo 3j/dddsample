@@ -1,6 +1,9 @@
 using dddsample.domain.model.cargo.aggregate;
+using dddsample.domain.model.cargo.aggregate.interfaces;
 using dddsample.domain.model.location.aggregate;
+using dddsample.domain.model.location.aggregate.interfaces;
 using dddsample.domain.model.voyage.aggregate;
+using dddsample.domain.model.voyage.aggregate.interfaces;
 using Machine.Specifications;
 using Machine.Specifications.DevelopWithPassion.Rhino;
 using Rhino.Mocks;

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using dddsample.domain.model.cargo.aggregate.interfaces;
 using dddsample.domain.model.handling.aggregate;
+using dddsample.domain.model.handling.aggregate.interfaces;
 using dddsample.domain.model.location.aggregate;
+using dddsample.domain.model.location.aggregate.interfaces;
 
 namespace dddsample.domain.model.cargo.aggregate
 {

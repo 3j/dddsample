@@ -1,4 +1,6 @@
-﻿namespace dddsample.domain.model.cargo.aggregate
+﻿using dddsample.domain.model.cargo.aggregate.interfaces;
+
+namespace dddsample.domain.model.cargo.aggregate
 {
     public class RouteStatus : IRouteStatus
     {
