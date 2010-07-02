@@ -1,10 +1,12 @@
+using System;
+
 namespace dddsample.domain.shared
 {
     static public class SpecificationExtensions
     {
         static public ISpecification<T> and<T>(this ISpecification<T> left_side, ISpecification<T> right_side)
         {
-            return new AndSpecification<T>(left_side, right_side);
+            return new AndSpecification<T>(right_side, left_side);
         }
 
         static public ISpecification<T> or<T>(this ISpecification<T> left_side, ISpecification<T> right_side)

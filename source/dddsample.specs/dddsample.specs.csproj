@@ -66,6 +66,7 @@
     <Compile Include="domain\shared\IWhateverType.cs" />
     <Compile Include="domain\shared\NotSpecificationSpec.cs" />
     <Compile Include="domain\shared\OrSpecificationSpec.cs" />
+    <Compile Include="domain\shared\SpecificationExtensionsSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
