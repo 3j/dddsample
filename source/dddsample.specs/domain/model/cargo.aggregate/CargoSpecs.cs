@@ -81,7 +81,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
         static bool result;
     }
 
-    public class when_comparing_two_diferent_cargoes : concern_for_cargo
+    public class when_comparing_two_different_cargoes : concern_for_cargo
     {
         Establish context = () =>
         {
@@ -93,7 +93,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         Because of = () => result = sut.has_the_same_identity_as(the_to_compare_cargo);
 
-        It should_confirm_that_they_have_diferent_identity = () => result.ShouldBeFalse();
+        It should_confirm_that_they_have_different_identity = () => result.ShouldBeFalse();
 
         It should_leverage_the_tracking_identity_collaborator = () =>
             tracking_id.received(
@@ -114,7 +114,7 @@ namespace dddsample.specs.domain.model.cargo.aggregate
 
         Because of = () => result = sut.has_the_same_identity_as(a_null_to_compare_cargo);
 
-        It should_confirm_that_they_have_diferent_identity = () => result.ShouldBeFalse();
+        It should_confirm_that_they_have_different_identity = () => result.ShouldBeFalse();
 
         It should_not_leverage_the_tracking_identity_collaborator = () =>
             tracking_id.never_received(x => x.has_the_same_value_as(null));

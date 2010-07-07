@@ -67,7 +67,12 @@
     <Compile Include="domain\model\cargo.aggregate\interfaces\ITrackingId.cs" />
     <Compile Include="domain\model\cargo.aggregate\RouteSpecification.cs" />
     <Compile Include="domain\model\cargo.aggregate\CargoAggregateFactory.cs" />
+    <Compile Include="domain\model\location.aggregate\interfaces\ILocationFactory.cs" />
+    <Compile Include="domain\model\location.aggregate\interfaces\ILocationName.cs" />
+    <Compile Include="domain\model\location.aggregate\LocationAggregateFactory.cs" />
     <Compile Include="domain\model\voyage.aggregate\interfaces\IVoyage.cs" />
+    <Compile Include="domain\model\location.aggregate\interfaces\IUnitedNationsLocationCode.cs" />
+    <Compile Include="domain\model\location.aggregate\Location.cs" />
     <Compile Include="domain\shared\IEnumeration.cs" />
     <Compile Include="domain\shared\AndSpecification.cs" />
     <Compile Include="domain\shared\IDomainEvent.cs" />
