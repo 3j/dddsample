@@ -70,6 +70,7 @@
     <Compile Include="domain\model\location.aggregate\interfaces\ILocationFactory.cs" />
     <Compile Include="domain\model\location.aggregate\interfaces\ILocationName.cs" />
     <Compile Include="domain\model\location.aggregate\LocationAggregateFactory.cs" />
+    <Compile Include="domain\model\location.aggregate\UnitedNationsLocationCode.cs" />
     <Compile Include="domain\model\voyage.aggregate\interfaces\IVoyage.cs" />
     <Compile Include="domain\model\location.aggregate\interfaces\IUnitedNationsLocationCode.cs" />
     <Compile Include="domain\model\location.aggregate\Location.cs" />

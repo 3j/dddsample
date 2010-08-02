@@ -1,7 +1,5 @@
 ﻿using dddsample.domain.model.cargo.aggregate.interfaces;
-using dddsample.domain.model.location.aggregate;
 using dddsample.domain.model.location.aggregate.interfaces;
-using dddsample.domain.model.voyage.aggregate;
 using dddsample.domain.model.voyage.aggregate.interfaces;
 
 namespace dddsample.domain.model.cargo.aggregate
@@ -14,7 +12,8 @@ namespace dddsample.domain.model.cargo.aggregate
         readonly IDate underlying_load_time;
         readonly IDate underlying_unload_time;
 
-        internal Leg(IVoyage the_voyage, ILocation the_load_location, ILocation the_unload_location, IDate the_load_time, IDate the_unload_time)
+        internal Leg(IVoyage the_voyage, ILocation the_load_location, ILocation the_unload_location, IDate the_load_time,
+                     IDate the_unload_time)
         {
             underlying_voyage = the_voyage;
             underlying_load_location = the_load_location;
