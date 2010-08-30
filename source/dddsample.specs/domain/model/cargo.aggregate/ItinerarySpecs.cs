@@ -836,8 +836,8 @@ namespace dddsample.specs.domain.model.cargo.aggregate
     {
         Establish context = () =>
         {
-            a_customs_type_handling_event = an<IHandlingEvent>();
-            a_customs_type_handling_event
+            an_unknown_type_handling_event = an<IHandlingEvent>();
+            an_unknown_type_handling_event
                 .Stub(x => x.type())
                 .Return(an<IHandlingEventType>());
 
@@ -848,27 +848,27 @@ namespace dddsample.specs.domain.model.cargo.aggregate
             create_sut_using(() => new Itinerary(the_collection_of_legs));
         };
 
-        Because of = () => result = sut.was_expecting(a_customs_type_handling_event);
+        Because of = () => result = sut.was_expecting(an_unknown_type_handling_event);
 
         It should_check_that_the_event_is_an_unknown_type_event = () =>
         {
-            a_customs_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.RECEIVE));
-            a_customs_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.LOAD));
-            a_customs_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.UNLOAD));
-            a_customs_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.CLAIM));
-            a_customs_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.CUSTOMS));
-            a_customs_type_handling_event.type().ShouldNotEqual(HandlingEventType.RECEIVE);
-            a_customs_type_handling_event.type().ShouldNotEqual(HandlingEventType.LOAD);
-            a_customs_type_handling_event.type().ShouldNotEqual(HandlingEventType.UNLOAD);
-            a_customs_type_handling_event.type().ShouldNotEqual(HandlingEventType.CLAIM);
-            a_customs_type_handling_event.type().ShouldNotEqual(HandlingEventType.CUSTOMS);
+            an_unknown_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.RECEIVE));
+            an_unknown_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.LOAD));
+            an_unknown_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.UNLOAD));
+            an_unknown_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.CLAIM));
+            an_unknown_type_handling_event.was_told_to(x => x.type().Equals(HandlingEventType.CUSTOMS));
+            an_unknown_type_handling_event.type().ShouldNotEqual(HandlingEventType.RECEIVE);
+            an_unknown_type_handling_event.type().ShouldNotEqual(HandlingEventType.LOAD);
+            an_unknown_type_handling_event.type().ShouldNotEqual(HandlingEventType.UNLOAD);
+            an_unknown_type_handling_event.type().ShouldNotEqual(HandlingEventType.CLAIM);
+            an_unknown_type_handling_event.type().ShouldNotEqual(HandlingEventType.CUSTOMS);
         };
 
         It should_confirm_it_was_not_expected = () => result.ShouldBeFalse();
 
         static bool result;
         static IList<ILeg> the_collection_of_legs;
-        static IHandlingEvent a_customs_type_handling_event;
+        static IHandlingEvent an_unknown_type_handling_event;
         static ILeg a_leg;
     }
 }
